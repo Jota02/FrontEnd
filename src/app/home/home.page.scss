@@ -1,18 +1,44 @@
 .botao {
   align-items: right;
-  position:relative; 
+  position: relative;
+  font-weight: bold;
+  color: white;
 }
 
-ion-col{
+#Pesquisa ion-col,
+#Resultados ion-col {
   text-align: center;
   color: black;
   border: 2px solid #ccc;
 }
 
+#Filtros {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#Filtros ion-col {
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+
 .input-field {
   text-align: center;
-  width: 100%;
+  width: 10rem;
   padding: 0.5em;
-  border: 1px solid #ccc;
-  box-sizing: border-box; /* Garante que a largura do input inclua padding e borda */
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  background-color: grey;
+  color: black;
+  ::placeholder {
+    color: blue;
+  }
+}
+
+.input-field::placeholder {
+  color: black;
 }

@@ -1,58 +1,78 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title class="ion-text-center">
+    <ion-title
+      class="ion-text-center"
+      style="height: 4rem; font-size: xx-large"
+    >
       StandVirtual - Scraper
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid style="margin-left: 2em; margin-right: 2em;">
-    <ion-row style="margin-top: 2em;">
-      <ion-col size="12" style="text-align: right; border: none;">
-        <ion-button class="botao">Adicionar</ion-button>
+  <ion-grid style="margin-left: 2em; margin-right: 2em">
+    <ion-row style="margin-top: 2em">
+      <ion-col size="12" style="text-align: right; border: none">
+        <ion-button class="botao" (click)="adicionar()">Adicionar</ion-button>
       </ion-col>
     </ion-row>
-    <ion-row style="background-color:gray; margin-top: 1em;">
+  </ion-grid>
+
+  <ion-grid id="Pesquisa" style="margin-left: 2em; margin-right: 2em">
+    <ion-row style="background-color: gray; align-items: center">
       <ion-col size="1">
-        <input type="checkbox">
+        <input type="checkbox" />
       </ion-col>
       <ion-col size="1">Marca</ion-col>
       <ion-col size="1">Modelo</ion-col>
       <ion-col size="7">Link StandVirtual</ion-col>
-      <ion-col size="1"><ion-button expand="block" color="warning">Editar</ion-button></ion-col>
-      <ion-col size="1"><ion-button expand="block" color="danger">Eliminar</ion-button></ion-col>
+      <ion-col size="1">
+        <span style="color: yellow; cursor: pointer" (click)="editar()"
+          >Editar</span
+        >
+      </ion-col>
+      <ion-col size="1">
+        <span style="color: red; cursor: pointer" (click)="eliminar()"
+          >Eliminar</span
+        >
+      </ion-col>
     </ion-row>
-    <ion-row style="margin-top: 2em;">
-      <ion-col size="1" style="border: none;"></ion-col>
-      <ion-col size="1" style="color: white; border: none;">
-        <input type="text" placeholder="De(Ano)" class="input-field">
+  </ion-grid>
+
+  <ion-grid id="Filtros">
+    <ion-row style="margin-top: 2em">
+      <ion-col size="1">
+        <input type="number" placeholder="De(Ano)" class="input-field" />
       </ion-col>
-      <ion-col size="1" style="border: none;"></ion-col>
-      <ion-col size="1" style="color: white; border: none;">
-        <input type="text" placeholder="Até(Ano)" class="input-field">
+      <ion-col size="1">
+        <input type="number" placeholder="Até(Ano)" class="input-field" />
       </ion-col>
-      <ion-col size="1" style="border: none;"></ion-col>
-      <ion-col size="1" style="color: white; border: none;">
-        <input type="text" placeholder="De(Preço)" class="input-field">
+      <ion-col size="1">
+        <input type="number" placeholder="De(Preço)" class="input-field" />
       </ion-col>
-      <ion-col size="1" style="border: none;"></ion-col>
-      <ion-col size="1" style="color: white; border: none;">
-        <input type="text" placeholder="Até(Preço)" class="input-field">
+      <ion-col size="1">
+        <input type="number" placeholder="Até(Preço)" class="input-field" />
       </ion-col>
-      <ion-col size="1" style="border: none;"></ion-col>
-      <ion-col size="2" style="color: white; border: none;">
-        <input type="text" placeholder="Km(Até)" class="input-field">
+      <ion-col size="1">
+        <input type="number" placeholder="Km(Até)" class="input-field" />
       </ion-col>
-      <ion-col size="1" style="border: none;"></ion-col>
     </ion-row>
-    
-    <ion-row style="margin-top: 2em;">
-      <ion-col size="10" style="border: none;"><ion-button>Scrap</ion-button></ion-col>
-      <ion-col size="2" style="border: none;"><ion-button>Exportar</ion-button></ion-col>
+  </ion-grid>
+
+  <ion-grid style="margin-left: 2em; margin-right: 2em">
+    <ion-row style="margin-top: 2em">
+      <ion-col size="10" style="text-align: center">
+        <ion-button class="botao">Scrap</ion-button>
+      </ion-col>
+      <ion-col size="2" style="text-align: center">
+        <ion-button class="botao">Exportar</ion-button>
+      </ion-col>
     </ion-row>
-    <ion-row style="background-color:gray; margin-top: 1em;">
-      <ion-col size="1" >Marca</ion-col>
+  </ion-grid>
+
+  <ion-grid id="Resultados" style="margin-left: 2em; margin-right: 2em">
+    <ion-row style="background-color: gray; margin-top: 1em">
+      <ion-col size="1">Marca</ion-col>
       <ion-col size="1">Modelo</ion-col>
       <ion-col size="1">Ano</ion-col>
       <ion-col size="1">Km</ion-col>

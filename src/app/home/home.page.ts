@@ -6,7 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   constructor() {}
 
+  adicionar() {}
+  editar() {
+    // Coloque aqui o código que você deseja executar quando "Editar" for clicado
+    console.log('Editar clicado');
+  }
+
+  eliminar() {
+    // Coloque aqui o código que você deseja executar quando "Eliminar" for clicado
+    console.log('Eliminar clicado');
+  }
 }
