@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
 
+interface Request {
+  km: string | null;
+  fromYear: string | null;
+  toYear: string | null;
+  fromPrice: string | null;
+  toPrice: string | null;
+  url: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -40,4 +49,41 @@ export class HomePage {
     localStorage.setItem('rows', JSON.stringify(this.rows));
     console.log(row.model, row.selected)
   }
+
+  getInputValue(id: string){
+    const input = document.getElementById(id) as HTMLInputElement;
+    const value = input ? input.value : 'null';
+
+    return value;
+  }
+
+  gatherInfo() {
+    const requests: Request[] = [];
+    const urls = this.rows.filter(row => row.selected);
+
+    const filters = new Map<string, string>();
+
+    filters.set('km', this.getInputValue('km'));
+    filters.set('fromYear', this.getInputValue('fromYear'));
+    filters.set('toYear', this.getInputValue('toYear'));
+    filters.set('fromPrice', this.getInputValue('fromPrice'));
+    filters.set('toPrice', this.getInputValue('toPrice'));
+
+    urls.forEach(url => {
+      let request: Request = {
+        km: filters.get('km') ?? null,
+        fromYear: filters.get('fromYear') ?? null,
+        toYear: filters.get('toYear') ?? null,
+        fromPrice: filters.get('fromPrice') ?? null,
+        toPrice: filters.get('toPrice') ?? null,
+        url: url.link
+      }
+
+      requests.push(request);
+    });
+
+    console.log(requests);
+  }
+
+
 }

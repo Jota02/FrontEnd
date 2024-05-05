@@ -31,7 +31,7 @@
     <ion-row
       *ngFor="let row of rows; let i = index"
       style="background-color: lightgray; align-items: center"
-    > <!-- [(ngModel)]="row.selected" (change)="toggleSelected(row)" -->
+    >
       <ion-col size="1">
         <input type="checkbox" [(ngModel)]="row.selected" (click)="toggleSelected(row)"/>
       </ion-col>
@@ -78,6 +78,7 @@
           type="number"
           placeholder="From(Year)"
           class="input-field"
+          id="fromYear"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
@@ -85,6 +86,7 @@
           type="number"
           placeholder="To(Year)"
           class="input-field"
+          id="toYear"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
@@ -92,6 +94,7 @@
           type="number"
           placeholder="From(Price)"
           class="input-field"
+          id="fromPrice"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
@@ -99,6 +102,7 @@
           type="number"
           placeholder="To(Price)"
           class="input-field"
+          id="toPrice"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
@@ -106,6 +110,7 @@
           type="number"
           placeholder="Km(Up to)"
           class="input-field"
+          id="km"
         ></ion-input>
       </ion-col>
     </ion-row>
@@ -114,7 +119,7 @@
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 2em">
       <ion-col size="10" style="text-align: center">
-        <ion-button class="botao">Scrap</ion-button>
+        <ion-button class="botao" (click)="gatherInfo()">Scrap</ion-button>
       </ion-col>
       <ion-col size="2" style="text-align: center">
         <ion-button class="botao">Export</ion-button>
