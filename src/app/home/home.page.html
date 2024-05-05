@@ -13,29 +13,19 @@
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 2em">
       <ion-col size="12" style="text-align: right; border: none">
-        <ion-button class="botao" (click)="adicionar()">Adicionar</ion-button>
+        <ion-button class="botao" (click)="add()">Add</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid id="Pesquisa" style="margin-left: 2em; margin-right: 2em">
+  <ion-grid id="Search" style="margin-left: 2em; margin-right: 2em">
     <ion-row style="background-color: gray; align-items: center">
-      <ion-col size="1">
-        <input type="checkbox" />
-      </ion-col>
-      <ion-col size="1">Marca</ion-col>
-      <ion-col size="1">Modelo</ion-col>
-      <ion-col size="7">Link StandVirtual</ion-col>
-      <ion-col size="1">
-        <span style="font-weight: bold; color: black; cursor: pointer"
-          >Editar</span
-        >
-      </ion-col>
-      <ion-col size="1">
-        <span style="font-weight: bold; color: red; cursor: pointer"
-          >Eliminar</span
-        >
-      </ion-col>
+      <ion-col size="1"> </ion-col>
+      <ion-col size="1" style="font-weight: bold">Brand</ion-col>
+      <ion-col size="1" style="font-weight: bold">Model</ion-col>
+      <ion-col size="7" style="font-weight: bold">Link StandVirtual</ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="1"></ion-col>
     </ion-row>
 
     <ion-row
@@ -46,16 +36,16 @@
         <input type="checkbox" />
       </ion-col>
       <ion-col size="1">
-        <ng-container *ngIf="editingIndex === i; else displayMarca">
-          <ion-input type="text" [(ngModel)]="row.marca" />
+        <ng-container *ngIf="editingIndex === i; else displayBrand">
+          <ion-input type="text" [(ngModel)]="row.brand" />
         </ng-container>
-        <ng-template #displayMarca> {{ row.marca }} </ng-template></ion-col
+        <ng-template #displayBrand> {{ row.brand }} </ng-template></ion-col
       >
       <ion-col size="1">
-        <ng-container *ngIf="editingIndex === i; else displayModelo">
-          <ion-input type="text" [(ngModel)]="row.modelo" />
+        <ng-container *ngIf="editingIndex === i; else displayModel">
+          <ion-input type="text" [(ngModel)]="row.model" />
         </ng-container>
-        <ng-template #displayModelo> {{ row.modelo }} </ng-template>
+        <ng-template #displayModel> {{ row.model }} </ng-template>
       </ion-col>
       <ion-col size="7">
         <ng-container *ngIf="editingIndex === i; else displayLink">
@@ -66,55 +56,55 @@
       <ion-col size="1">
         <span
           style="font-weight: bold; color: black; cursor: pointer"
-          (click)="editar(i)"
+          (click)="edit(i)"
         >
-          {{ editingIndex === i ? 'Guardar' : 'Editar' }}
+          {{ editingIndex === i ? 'Save' : 'Edit' }}
         </span>
       </ion-col>
       <ion-col size="1">
         <span
           style="font-weight: bold; color: red; cursor: pointer"
-          (click)="eliminar(i)"
-          >Eliminar</span
+          (click)="delete(i)"
+          >Delete</span
         >
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid id="Filtros">
+  <ion-grid id="Filters">
     <ion-row style="margin-top: 2em">
       <ion-col size="1">
         <ion-input
           type="number"
-          placeholder="De(Ano)"
+          placeholder="From(Year)"
           class="input-field"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
         <ion-input
           type="number"
-          placeholder="Até(Ano)"
+          placeholder="To(Year)"
           class="input-field"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
         <ion-input
           type="number"
-          placeholder="De(Preço)"
+          placeholder="From(Price)"
           class="input-field"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
         <ion-input
           type="number"
-          placeholder="Até(Preço)"
+          placeholder="To(Price)"
           class="input-field"
         ></ion-input>
       </ion-col>
       <ion-col size="1">
         <ion-input
           type="number"
-          placeholder="Km(Até)"
+          placeholder="Km(Up to)"
           class="input-field"
         ></ion-input>
       </ion-col>
@@ -127,19 +117,19 @@
         <ion-button class="botao">Scrap</ion-button>
       </ion-col>
       <ion-col size="2" style="text-align: center">
-        <ion-button class="botao">Exportar</ion-button>
+        <ion-button class="botao">Export</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid id="Resultados" style="margin-left: 2em; margin-right: 2em">
+  <ion-grid id="Results" style="margin-left: 2em; margin-right: 2em">
     <ion-row style="background-color: gray; margin-top: 1em">
-      <ion-col size="1">Marca</ion-col>
-      <ion-col size="1">Modelo</ion-col>
-      <ion-col size="1">Ano</ion-col>
-      <ion-col size="1">Km</ion-col>
-      <ion-col size="1">Preço</ion-col>
-      <ion-col size="7">Link StandVirtual</ion-col>
+      <ion-col size="1" style="font-weight: bold">Brand</ion-col>
+      <ion-col size="1" style="font-weight: bold">Model</ion-col>
+      <ion-col size="1" style="font-weight: bold">Year</ion-col>
+      <ion-col size="1" style="font-weight: bold">Km</ion-col>
+      <ion-col size="1" style="font-weight: bold">Price</ion-col>
+      <ion-col size="7" style="font-weight: bold">Link StandVirtual</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

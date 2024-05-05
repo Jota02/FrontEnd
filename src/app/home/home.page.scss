@@ -9,14 +9,17 @@ ion-content {
   color: white;
 }
 
-#Pesquisa ion-col,
-#Resultados ion-col {
+#Search ion-col,
+#Results ion-col {
+  display: flex;
+  align-items: center;
+  height: 2rem;
   text-align: center;
   color: black;
   border: 2px solid black;
 }
 
-#Filtros {
+#Filters {
   width: 80%;
   margin: 0 auto;
   display: flex;
@@ -24,7 +27,7 @@ ion-content {
   align-items: center;
 }
 
-#Filtros ion-col {
+#Filters ion-col {
   margin: auto;
   text-align: center;
   color: black;

@@ -14,11 +14,11 @@ export class HomePage {
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
   }
 
-  adicionar() {
+  add() {
     this.rows.push({});
     localStorage.setItem('rows', JSON.stringify(this.rows));
   }
-  editar(index: number) {
+  edit(index: number) {
     console.log('Editar clicado para a linha', index);
     if (this.editingIndex === null) {
       this.editingIndex = index;
@@ -29,7 +29,7 @@ export class HomePage {
     }
   }
 
-  eliminar(index: number) {
+  delete(index: number) {
     console.log('Eliminar clicado', index);
     this.rows.splice(index, 1);
     localStorage.setItem('rows', JSON.stringify(this.rows));
