@@ -29,14 +29,10 @@
 .input-field {
   text-align: center;
   width: 10rem;
-  padding: 0.5em;
+  height: 2rem;
   border: 2px solid #ccc;
-  box-sizing: border-box;
   background-color: grey;
   color: black;
-  ::placeholder {
-    color: blue;
-  }
 }
 
 .input-field::placeholder {
