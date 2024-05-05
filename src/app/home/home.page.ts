@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  rows: any[] = [{}];
+  rows: any[] = [{ selected: false }];
   editingIndex: number | null = null;
 
   constructor() {
@@ -15,7 +15,7 @@ export class HomePage {
   }
 
   add() {
-    this.rows.push({});
+    this.rows.push({ selected: false });
     localStorage.setItem('rows', JSON.stringify(this.rows));
   }
   edit(index: number) {
@@ -33,5 +33,11 @@ export class HomePage {
     console.log('Eliminar clicado', index);
     this.rows.splice(index, 1);
     localStorage.setItem('rows', JSON.stringify(this.rows));
+  }
+
+  toggleSelected(row: any) {
+    row.selected = !row.selected;
+    localStorage.setItem('rows', JSON.stringify(this.rows));
+    console.log(row.model, row.selected)
   }
 }

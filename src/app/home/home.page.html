@@ -31,9 +31,9 @@
     <ion-row
       *ngFor="let row of rows; let i = index"
       style="background-color: lightgray; align-items: center"
-    >
+    > <!-- [(ngModel)]="row.selected" (change)="toggleSelected(row)" -->
       <ion-col size="1">
-        <input type="checkbox" />
+        <input type="checkbox" [(ngModel)]="row.selected" (click)="toggleSelected(row)"/>
       </ion-col>
       <ion-col size="1">
         <ng-container *ngIf="editingIndex === i; else displayBrand">
