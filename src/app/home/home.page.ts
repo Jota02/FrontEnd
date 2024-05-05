@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
-
-interface Request {
-  km: string | null;
-  fromYear: string | null;
-  toYear: string | null;
-  fromPrice: string | null;
-  toPrice: string | null;
-  url: string;
-}
+import { ApiService } from '../services/api.service';
+import { Info } from '../utils/info.model';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +11,7 @@ export class HomePage {
   rows: any[] = [{ selected: false }];
   editingIndex: number | null = null;
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     const storedRows = localStorage.getItem('rows');
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
   }
@@ -58,7 +51,7 @@ export class HomePage {
   }
 
   gatherInfo() {
-    const requests: Request[] = [];
+    const info: Info[] = [];
     const urls = this.rows.filter(row => row.selected);
 
     const filters = new Map<string, string>();
@@ -70,19 +63,32 @@ export class HomePage {
     filters.set('toPrice', this.getInputValue('toPrice'));
 
     urls.forEach(url => {
-      let request: Request = {
-        km: filters.get('km') ?? null,
-        fromYear: filters.get('fromYear') ?? null,
-        toYear: filters.get('toYear') ?? null,
-        fromPrice: filters.get('fromPrice') ?? null,
-        toPrice: filters.get('toPrice') ?? null,
+      let data: Info = {
+        km: filters.get('km') ?? 'null',
+        fromYear: filters.get('fromYear') ?? 'null',
+        toYear: filters.get('toYear') ?? 'null',
+        fromPrice: filters.get('fromPrice') ?? 'null',
+        toPrice: filters.get('toPrice') ?? 'null',
         url: url.link
       }
 
-      requests.push(request);
+      info.push(data);
     });
 
-    console.log(requests);
+    return info
+  }
+
+  scrape() {
+    const requests: Info[] = this.gatherInfo();
+
+    requests.forEach(request => {
+      this.apiService.getLast10Cars(request)
+        .subscribe(res => {
+          console.log("Response: ", res);
+        }), (error: any) => {
+          console.error("Error: ", error);
+        }
+    });
   }
 
 
