@@ -1,3 +1,7 @@
+ion-content {
+  --background: #636363ad;
+}
+
 .botao {
   align-items: right;
   position: relative;
@@ -9,7 +13,7 @@
 #Resultados ion-col {
   text-align: center;
   color: black;
-  border: 2px solid #ccc;
+  border: 2px solid black;
 }
 
 #Filtros {
@@ -23,7 +27,7 @@
 #Filtros ion-col {
   margin: auto;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .input-field {
