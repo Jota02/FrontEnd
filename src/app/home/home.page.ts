@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Info } from '../utils/info.model';
+import { Response } from '../utils/response.model';
 
 @Component({
   selector: 'app-home',
@@ -80,11 +81,23 @@ export class HomePage {
 
   scrape() {
     const requests: Info[] = this.gatherInfo();
+    const finalData: Response[] = [];
 
     requests.forEach(request => {
       this.apiService.getLast10Cars(request)
-        .subscribe(res => {
-          console.log("Response: ", res);
+        .subscribe((responses: Response[]) => {
+          responses.forEach(res => {
+              let data: Response = {
+                modelMake: res.modelMake,
+                km: res.km, 
+                year: res.year,
+                price: res.price,
+                url: res.url
+              };
+            finalData.push(data);
+          })
+          console.log("responses array:", finalData);
+
         }), (error: any) => {
           console.error("Error: ", error);
         }
