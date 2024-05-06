@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { ApiService } from './api.service';
-import { IRequest } from '../model/i-request.model';
+import { ApiService } from '../api/api.service';
+import { IRequest } from '../../model/i-request.model';
 
 @Injectable({
   providedIn: 'root'

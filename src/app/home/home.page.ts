@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ScrapingService } from '../services/scraping.service';
+import { ScrapingService } from '../services/scraping/scraping.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
 

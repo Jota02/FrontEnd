@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IRequest } from '../model/i-request.model';
-import { IResponse } from '../model/i-response.model';
+import { IRequest } from '../../model/i-request.model';
+import { IResponse } from '../../model/i-response.model';
 
 @Injectable({
   providedIn: 'root'
