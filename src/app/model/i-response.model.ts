@@ -1,4 +1,4 @@
-export interface Response {
+export interface IResponse {
     modelMake: string;
     km: string;
     year: string;

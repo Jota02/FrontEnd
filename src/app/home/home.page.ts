@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { Info } from '../utils/info.model';
-import { Response } from '../utils/response.model';
+import { ScrapingService } from '../services/scraping/scraping.service';
+import { IRequest } from '../model/i-request.model';
+import { IResponse } from '../model/i-response.model';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +11,9 @@ import { Response } from '../utils/response.model';
 export class HomePage {
   rows: any[] = [{ selected: false }];
   editingIndex: number | null = null;
+  public finalData: IResponse[] = [];
 
-  constructor(private apiService: ApiService) {
+  constructor(private scrapingService: ScrapingService) {
     const storedRows = localStorage.getItem('rows');
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
   }
@@ -52,7 +53,7 @@ export class HomePage {
   }
 
   gatherInfo() {
-    const info: Info[] = [];
+    const info: IRequest[] = [];
     const urls = this.rows.filter(row => row.selected);
 
     const filters = new Map<string, string>();
@@ -64,7 +65,7 @@ export class HomePage {
     filters.set('toPrice', this.getInputValue('toPrice'));
 
     urls.forEach(url => {
-      let data: Info = {
+      let data: IRequest = {
         km: filters.get('km') ?? 'null',
         fromYear: filters.get('fromYear') ?? 'null',
         toYear: filters.get('toYear') ?? 'null',
@@ -80,29 +81,10 @@ export class HomePage {
   }
 
   scrape() {
-    const requests: Info[] = this.gatherInfo();
-    const finalData: Response[] = [];
-
-    requests.forEach(request => {
-      this.apiService.getLast10Cars(request)
-        .subscribe((responses: Response[]) => {
-          responses.forEach(res => {
-              let data: Response = {
-                modelMake: res.modelMake,
-                km: res.km, 
-                year: res.year,
-                price: res.price,
-                url: res.url
-              };
-            finalData.push(data);
-          })
-          console.log("responses array:", finalData);
-
-        }), (error: any) => {
-          console.error("Error: ", error);
-        }
-    });
+    this.scrapingService.scrape(this.gatherInfo())
   }
+
+  
 
 
 }
