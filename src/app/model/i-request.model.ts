@@ -1,4 +1,4 @@
-export interface Info {
+export interface IRequest {
     km: string;
     fromYear: string;
     toYear: string;
