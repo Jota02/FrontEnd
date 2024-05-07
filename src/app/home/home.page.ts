@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ScrapingService } from '../services/scraping/scraping.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,10 @@ export class HomePage {
   editingIndex: number | null = null;
   public finalData: IResponse[] = [];
 
-  constructor(private scrapingService: ScrapingService) {
+  constructor(
+    private scrapingService: ScrapingService,
+    private loadingCtrl: LoadingController
+  ) {
     const storedRows = localStorage.getItem('rows');
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
   }
@@ -42,10 +46,10 @@ export class HomePage {
   toggleSelected(row: any) {
     row.selected = !row.selected;
     localStorage.setItem('rows', JSON.stringify(this.rows));
-    console.log(row.model, row.selected)
+    console.log(row.model, row.selected);
   }
 
-  getInputValue(id: string){
+  getInputValue(id: string) {
     const input = document.getElementById(id) as HTMLInputElement;
     const value = input ? input.value : 'null';
 
@@ -54,7 +58,7 @@ export class HomePage {
 
   gatherInfo() {
     const info: IRequest[] = [];
-    const urls = this.rows.filter(row => row.selected);
+    const urls = this.rows.filter((row) => row.selected);
 
     const filters = new Map<string, string>();
 
@@ -64,27 +68,34 @@ export class HomePage {
     filters.set('fromPrice', this.getInputValue('fromPrice'));
     filters.set('toPrice', this.getInputValue('toPrice'));
 
-    urls.forEach(url => {
+    urls.forEach((url) => {
       let data: IRequest = {
         km: filters.get('km') ?? 'null',
         fromYear: filters.get('fromYear') ?? 'null',
         toYear: filters.get('toYear') ?? 'null',
         fromPrice: filters.get('fromPrice') ?? 'null',
         toPrice: filters.get('toPrice') ?? 'null',
-        url: url.link
-      }
+        url: url.link,
+      };
 
       info.push(data);
     });
 
-    return info
+    return info;
   }
 
   scrape() {
-    this.scrapingService.scrape(this.gatherInfo())
+    this.showLoading();
+    this.scrapingService.scrape(this.gatherInfo());
+    this.loadingCtrl.dismiss();
   }
 
-  
-
-
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'circles',
+      message: 'Loading Cars...',
+      duration: 3000,
+    });
+    await loading.present();
+  }
 }

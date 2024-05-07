@@ -1,11 +1,15 @@
 <ng-container *ngFor="let row of rows">
-  <ion-row>
-    <ion-col size="1">{{ row.modelMake }}</ion-col>
-    <ion-col size="1">{{ row.year }}</ion-col>
-    <ion-col size="1">{{ row.km }}</ion-col>
-    <ion-col size="1">{{ row.price }}</ion-col>
-    <ion-col size="7">
-      <a [href]="row.url" target="_blank">{{ row.url }}</a>
-    </ion-col>
-  </ion-row>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="color: black">{{ row.modelMake }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Year: {{ row.year }}</p>
+      <p>Km: {{ row.km }}</p>
+      <p>Price: {{ row.price }} €</p>
+      <p>
+        Link: <a [href]="row.url" target="_blank">{{ row.url }}</a>
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ng-container>
