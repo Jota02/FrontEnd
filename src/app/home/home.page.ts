@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ScrapingService } from '../services/scraping/scraping.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
 import { LoadingController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,8 @@ export class HomePage {
   rows: any[] = [{ selected: false }];
   editingIndex: number | null = null;
   public finalData: IResponse[] = [];
+  @ViewChild(IonModal)
+  modal!: IonModal;
 
   constructor(
     private scrapingService: ScrapingService,
@@ -20,6 +24,14 @@ export class HomePage {
   ) {
     const storedRows = localStorage.getItem('rows');
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
+  }
+
+  back() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
   }
 
   add() {
