@@ -12,7 +12,17 @@
 <ion-content [fullscreen]="true">
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 2em">
-      <ion-col size="12" style="text-align: right; border: none">
+      <ion-col size="10" style="align-items: right; border: none">
+        <ion-segment value="default">
+          <ion-segment-button value="primary">
+            <ion-label>Active</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="segment">
+            <ion-label>Non Active</ion-label>
+          </ion-segment-button>
+        </ion-segment></ion-col
+      >
+      <ion-col size="2" style="text-align: right; border: none">
         <ion-button class="button" (click)="add()">Add</ion-button>
       </ion-col>
     </ion-row>

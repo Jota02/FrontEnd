@@ -85,7 +85,7 @@ export class HomePage {
   }
 
   scrape() {
-    this.showLoading();
+    //this.showLoading();
     this.scrapingService.scrape(this.gatherInfo());
     this.loadingCtrl.dismiss();
   }
