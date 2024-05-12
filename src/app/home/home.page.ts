@@ -94,7 +94,7 @@ export class HomePage {
   }
 
   scrape() {
-    //this.showLoading();
+    this.showLoading();
     this.scrapingService.scrape(this.gatherInfo());
     this.loadingCtrl.dismiss();
   }
@@ -103,7 +103,7 @@ export class HomePage {
     const loading = await this.loadingCtrl.create({
       spinner: 'circles',
       message: 'Loading Cars...',
-      duration: 3000,
+      duration: 1000,
     });
     await loading.present();
   }
