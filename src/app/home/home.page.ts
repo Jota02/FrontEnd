@@ -4,6 +4,7 @@ import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { IonModal } from '@ionic/angular';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -93,18 +94,10 @@ export class HomePage {
     return info;
   }
 
-  scrape() {
-    this.showLoading();
-    this.scrapingService.scrape(this.gatherInfo());
-    this.loadingCtrl.dismiss();
-  }
-
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      spinner: 'circles',
-      message: 'Loading Cars...',
-      duration: 1000,
-    });
-    await loading.present();
+  async scrape() {
+    this.finalData = [];
+    await this.scrapingService.scrape(this.gatherInfo());
+    //await firstValueFrom()
+    //await loading.dismiss();
   }
 }
