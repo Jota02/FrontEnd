@@ -10,6 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Botão de ADD -->
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 2em">
       <ion-col size-xs="3" size-md="2" size-lg="1"> </ion-col>
@@ -25,6 +26,7 @@
     </ion-row>
   </ion-grid>
 
+  <!-- Tabela de Pesquisa -->
   <ion-grid id="Search" style="margin-left: 2em; margin-right: 2em">
     <ion-row style="background-color: gray; align-items: center">
       <ion-col size="1"> </ion-col>
@@ -98,7 +100,10 @@
                 <ion-buttons slot="start">
                   <ion-button (click)="modal.dismiss()">Close</ion-button>
                 </ion-buttons>
-                <ion-title>Historic</ion-title>
+                <ion-title style="text-align: center">Historic</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="deleteContent(i)">Delete</ion-button>
+                </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
@@ -129,6 +134,7 @@
     </ion-row>
   </ion-grid>
 
+  <!-- Filtros  -->
   <ion-grid id="Filters">
     <ion-row style="margin-top: 2em">
       <ion-col size="1">
@@ -174,6 +180,7 @@
     </ion-row>
   </ion-grid>
 
+  <!-- Botão de Scrap e Export -->
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 2em">
       <ion-col size="10" style="text-align: center">
@@ -185,6 +192,7 @@
     </ion-row>
   </ion-grid>
 
+  <!-- Tabela de Resultados -->
   <ion-grid id="Results" style="margin-left: 2em; margin-right: 2em">
     <app-scrape-result-list></app-scrape-result-list>
   </ion-grid>

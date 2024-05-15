@@ -2,9 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { ScrapingService } from '../services/scraping/scraping.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { IonModal } from '@ionic/angular';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,16 +11,16 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  rows: any[] = [{ selected: false }];
+  rows: any[] = [{ selected: false, showContent: true }];
   editingIndex: number | null = null;
   public finalData: IResponse[] = [];
   @ViewChild(IonModal)
   modal!: IonModal;
   modalOpenIndex: number | undefined;
+  contentVisible: boolean = true;
 
   constructor(
     private scrapingService: ScrapingService,
-    private loadingCtrl: LoadingController,
     public modalController: ModalController
   ) {
     const storedRows = localStorage.getItem('rows');
@@ -51,6 +50,10 @@ export class HomePage {
     console.log('Eliminar clicado', index);
     this.rows.splice(index, 1);
     localStorage.setItem('rows', JSON.stringify(this.rows));
+  }
+
+  deleteContent(index: number) {
+    console.log('Histórico da linha', index, 'apagado!');
   }
 
   toggleSelected(row: any) {
