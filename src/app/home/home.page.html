@@ -10,22 +10,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Botão de ADD -->
-  <ion-grid style="margin-left: 2em; margin-right: 2em">
-    <ion-row style="margin-top: 2em">
-      <ion-col size-xs="3" size-md="2" size-lg="1"> </ion-col>
-      <ion-col size-xs="0" size-md="4" size-lg="10"> </ion-col>
-      <ion-col
-        size-xs="1"
-        size-md="1"
-        size-lg="1"
-        style="text-align: right; border: none"
-      >
-        <ion-button class="button" (click)="add()">Add</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
+  <!-- Add cars Button/Modal-->
+  <app-add-cars></app-add-cars>
   <!--Cars Table Component-->
   <app-cars-table [cars]="cars"></app-cars-table>
 

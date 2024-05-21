@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 
 import { ScrapeResultListComponent } from '../components/scrape-result-list/scrape-result-list.component';
 import { CarsTableComponent } from '../components/cars-table/cars-table.component';
+import { AddCarsComponent } from '../components/add-cars/add-cars.component';
 
 
 
@@ -22,7 +23,8 @@ import { CarsTableComponent } from '../components/cars-table/cars-table.componen
   declarations: [
     HomePage, 
     ScrapeResultListComponent,
-    CarsTableComponent
+    CarsTableComponent,
+    AddCarsComponent
   ]
 })
 export class HomePageModule {}

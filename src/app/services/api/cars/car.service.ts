@@ -18,7 +18,7 @@ export class CarService {
     return this.http.get<ICar[]>(url);
   }
 
-  createCar(car: ICar){
+  createCar(car: ICar): Observable<ICar>{
     const url = this.apiUrl + 'create';
     const body = {
       make: car.make,
@@ -26,10 +26,10 @@ export class CarService {
       url: car.url
     };
 
-    return this.http.post(url, body);
+    return this.http.post<ICar>(url, body);
   }
 
-  updateCar(car: ICar){
+  updateCar(car: ICar): Observable<ICar>{
     const url = this.apiUrl + 'update';
     const body = {
       id: car.id,
@@ -39,6 +39,6 @@ export class CarService {
       active: car.active
     };
 
-    return this.http.put(url, body);
+    return this.http.put<ICar>(url, body);
   }
 }
