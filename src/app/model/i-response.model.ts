@@ -4,4 +4,6 @@ export interface IResponse {
     year: string;
     price: string;
     url: string;
+    publishedDate: Date;
+    scrapIdFk: string;
   }

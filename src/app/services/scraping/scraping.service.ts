@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { ApiService } from '../api/api.service';
+import { ScrapService } from '../api/scrap/scrap.service';
 import { IRequest } from '../../model/i-request.model';
 import { LoadingController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
@@ -11,7 +11,7 @@ export class ScrapingService {
   dataUpdated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private apiService: ApiService,
+    private scrapService: ScrapService,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -21,7 +21,7 @@ export class ScrapingService {
     const requests: IRequest[] = info;
     for (let index = 0; index < requests.length; index++) {
       const response = await firstValueFrom(
-        this.apiService.getLast10Cars(requests[index])
+        this.scrapService.getLast10Cars(requests[index])
       );
       this.dataUpdated.emit(response);
     }
