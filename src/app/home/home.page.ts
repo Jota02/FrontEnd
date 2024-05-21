@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit  } from '@angular/core';
 import { ScrapingService } from '../services/scraping/scraping.service';
+import { CarService } from '../services/api/cars/car.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
+import { ICar } from '../model/i-car.model';
 import { ModalController } from '@ionic/angular';
 import { IonModal } from '@ionic/angular';
 
@@ -19,12 +21,25 @@ export class HomePage {
   modalOpenIndex: number | undefined;
   contentVisible: boolean = true;
 
+  cars: ICar[] = [];
+
   constructor(
     private scrapingService: ScrapingService,
+    private carService: CarService,
     public modalController: ModalController
   ) {
     const storedRows = localStorage.getItem('rows');
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
+  }
+
+  ngOnInit() {
+    this.getCars();
+  }
+
+  getCars() {
+    this.carService.getAllCars().subscribe((cars: ICar[]) => {
+      this.cars = cars;
+    });
   }
 
   openModal(index: number) {

@@ -32,9 +32,11 @@ export class CarService {
   updateCar(car: ICar){
     const url = this.apiUrl + 'update';
     const body = {
+      id: car.id,
       make: car.make,
       model: car.model,
-      url: car.url
+      url: car.url,
+      active: car.active
     };
 
     return this.http.put(url, body);

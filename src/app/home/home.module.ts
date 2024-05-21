@@ -7,6 +7,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 
 import { ScrapeResultListComponent } from '../components/scrape-result-list/scrape-result-list.component';
+import { CarsTableComponent } from '../components/cars-table/cars-table.component';
 
 
 
@@ -18,6 +19,10 @@ import { ScrapeResultListComponent } from '../components/scrape-result-list/scra
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, ScrapeResultListComponent]
+  declarations: [
+    HomePage, 
+    ScrapeResultListComponent,
+    CarsTableComponent
+  ]
 })
 export class HomePageModule {}

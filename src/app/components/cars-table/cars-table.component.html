@@ -1,0 +1,35 @@
+<ion-grid id="cars" style="margin-left: 2em; margin-right: 2em">
+  <ion-row style="background-color: gray; align-items: center">
+    <ion-col size="1"> </ion-col>
+    <ion-col size="1" style="font-weight: bold">Brand</ion-col>
+    <ion-col size="1" style="font-weight: bold">Model</ion-col>
+    <ion-col size="6" style="font-weight: bold">Link StandVirtual</ion-col>
+    <ion-col size="1"></ion-col>
+    <ion-col size="1"></ion-col>
+    <ion-col size="1"></ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let car of cars; let i = index" style="background-color: lightgray; align-items: center">
+    <ion-col size="1">
+      <ion-checkbox></ion-checkbox>
+    </ion-col>
+    <ion-col size="1">{{ car.make }}</ion-col>
+    <ion-col size="1">{{ car.model }}</ion-col>
+    <ion-col size="6">{{ car.url }}</ion-col>
+    <ion-col size="1">
+      <span (click)="toggleEdit(i)" style="font-weight: bold; color: black; cursor: pointer">
+        {{ editingIndex === i ? 'Save' : 'Edit' }}
+      </span>
+    </ion-col>
+    <ion-col size="1">
+      <span (click)="deactivateCar(i)" style="font-weight: bold; color: red; cursor: pointer">
+        Delete
+      </span>
+    </ion-col>
+    <ion-col size="1">
+      <span (click)="openModal(i)" style="font-weight: bold; color: black; cursor: pointer">
+        History
+      </span>
+    </ion-col>
+  </ion-row>
+</ion-grid>
