@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ScrapingService } from '../services/scraping/scraping.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
-import { LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +11,24 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  rows: any[] = [{ selected: false }];
+  rows: any[] = [{ selected: false, showContent: true }];
   editingIndex: number | null = null;
   public finalData: IResponse[] = [];
+  @ViewChild(IonModal)
+  modal!: IonModal;
+  modalOpenIndex: number | undefined;
+  contentVisible: boolean = true;
 
   constructor(
     private scrapingService: ScrapingService,
-    private loadingCtrl: LoadingController
+    public modalController: ModalController
   ) {
     const storedRows = localStorage.getItem('rows');
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
+  }
+
+  openModal(index: number) {
+    this.modalOpenIndex = index;
   }
 
   add() {
@@ -41,6 +50,10 @@ export class HomePage {
     console.log('Eliminar clicado', index);
     this.rows.splice(index, 1);
     localStorage.setItem('rows', JSON.stringify(this.rows));
+  }
+
+  deleteContent(index: number) {
+    console.log('Histórico da linha', index, 'apagado!');
   }
 
   toggleSelected(row: any) {
@@ -84,18 +97,10 @@ export class HomePage {
     return info;
   }
 
-  scrape() {
-    this.showLoading();
-    this.scrapingService.scrape(this.gatherInfo());
-    this.loadingCtrl.dismiss();
-  }
-
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      spinner: 'circles',
-      message: 'Loading Cars...',
-      duration: 3000,
-    });
-    await loading.present();
+  async scrape() {
+    this.finalData = [];
+    await this.scrapingService.scrape(this.gatherInfo());
+    //await firstValueFrom()
+    //await loading.dismiss();
   }
 }

@@ -2,9 +2,11 @@ ion-content {
   --background: #636363ad;
 }
 
+ion-segment-button {
+  font-weight: bold;
+}
+
 .button {
-  align-items: right;
-  position: relative;
   font-weight: bold;
   color: white;
 }
