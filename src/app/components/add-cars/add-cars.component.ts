@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ICar } from '../../model/i-car.model';
 import { CarService } from '../../services/api/cars/car.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-cars',
@@ -9,17 +9,12 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./add-cars.component.scss']
 })
 export class AddCarsComponent {
-  isModalOpen = false;
   newCar: ICar = { id: '', make: '', model: '', url: '', active: true };
 
-  constructor(private carService: CarService, private alertController: AlertController) {}
-
-  openModal() {
-    this.isModalOpen = true;
-  }
+  constructor(private carService: CarService, private alertController: AlertController, private modalController: ModalController) {}
 
   closeModal() {
-    this.isModalOpen = false;
+    this.modalController.dismiss()
   }
 
   submitAddCarForm() {

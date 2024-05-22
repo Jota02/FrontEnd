@@ -4,8 +4,8 @@ import { CarService } from '../services/api/cars/car.service';
 import { IRequest } from '../model/i-request.model';
 import { IResponse } from '../model/i-response.model';
 import { ICar } from '../model/i-car.model';
-import { ModalController } from '@ionic/angular';
-import { IonModal } from '@ionic/angular';
+import { ModalController, IonModal } from '@ionic/angular';
+import { AddCarsComponent } from '../components/add-cars/add-cars.component';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +40,13 @@ export class HomePage {
     this.carService.getAllCars().subscribe((cars: ICar[]) => {
       this.cars = cars;
     });
+  }
+
+  async openAddCarModal() {
+    const modal = await this.modalController.create({
+      component: AddCarsComponent
+    });
+    await modal.present();
   }
 
   openModal(index: number) {
