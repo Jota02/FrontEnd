@@ -17,8 +17,8 @@
     <ion-col size="1">{{ car.model }}</ion-col>
     <ion-col size="6">{{ car.url }}</ion-col>
     <ion-col size="1">
-      <span (click)="toggleEdit(i)" style="font-weight: bold; color: black; cursor: pointer">
-        {{ editingIndex === i ? 'Save' : 'Edit' }}
+      <span (click)="openEditCarModal(car)" style="font-weight: bold; color: black; cursor: pointer">
+        Edit
       </span>
     </ion-col>
     <ion-col size="1">

@@ -9,6 +9,7 @@ import { HomePage } from './home.page';
 import { ScrapeResultListComponent } from '../components/scrape-result-list/scrape-result-list.component';
 import { CarsTableComponent } from '../components/cars-table/cars-table.component';
 import { AddCarsComponent } from '../components/add-cars/add-cars.component';
+import { EditCarComponent } from '../components/edit-car/edit-car.component';
 
 
 
@@ -24,7 +25,8 @@ import { AddCarsComponent } from '../components/add-cars/add-cars.component';
     HomePage, 
     ScrapeResultListComponent,
     CarsTableComponent,
-    AddCarsComponent
+    AddCarsComponent,
+    EditCarComponent
   ]
 })
 export class HomePageModule {}

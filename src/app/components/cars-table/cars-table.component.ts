@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ICar } from '../../model/i-car.model'
+import { ModalController } from '@ionic/angular';
+import { EditCarComponent } from '../edit-car/edit-car.component';
 
 @Component({
   selector: 'app-cars-table',
@@ -10,7 +12,7 @@ export class CarsTableComponent {
   @Input() cars: ICar[] = [];
   editingIndex: number | null = null;
 
-  constructor() {}
+  constructor(private modalController: ModalController) {}
 
   //Edit a row
   toggleEdit(index: number) {
@@ -19,6 +21,16 @@ export class CarsTableComponent {
     } else {
       this.editingIndex = index;
     }
+  }
+
+  async openEditCarModal(car: ICar) {
+    const modal = await this.modalController.create({
+      component: EditCarComponent,
+      componentProps: {
+        car: car
+      }
+    });
+    await modal.present();
   }
 
   //Set active car to false
@@ -30,5 +42,7 @@ export class CarsTableComponent {
   openModal(index: number) {
     console.log('Open')
   }
+
+
 
 }
