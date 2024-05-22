@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ICar } from '../../model/i-car.model'
 import { ModalController } from '@ionic/angular';
 import { EditCarComponent } from '../edit-car/edit-car.component';
+import { CarService } from 'src/app/services/api/cars/car.service';
 
 @Component({
   selector: 'app-cars-table',
@@ -12,17 +13,9 @@ export class CarsTableComponent {
   @Input() cars: ICar[] = [];
   editingIndex: number | null = null;
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private carService: CarService) {}
 
-  //Edit a row
-  toggleEdit(index: number) {
-    if (this.editingIndex === index) {
-      this.editingIndex = null;
-    } else {
-      this.editingIndex = index;
-    }
-  }
-
+  //Open Edit Modal
   async openEditCarModal(car: ICar) {
     const modal = await this.modalController.create({
       component: EditCarComponent,
@@ -34,8 +27,9 @@ export class CarsTableComponent {
   }
 
   //Set active car to false
-  deactivateCar(index: number) {
-    this.cars[index].active = false;
+  deactivateCar(car: ICar) {
+    car.active = false;
+    this.carService.updateCar(car).subscribe();
   }
 
   //Open history modal
