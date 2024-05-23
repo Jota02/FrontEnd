@@ -13,15 +13,15 @@ export class AddCarsComponent {
 
   constructor(private carService: CarService, private alertController: AlertController, private modalController: ModalController) {}
 
-  closeModal() {
-    this.modalController.dismiss()
+  closeModal(message = '') {
+    this.modalController.dismiss({message: message});
   }
 
   submitAddCarForm() {
     this.carService.createCar(this.newCar).subscribe({
       next: () => {
         this.newCar = { id: '', make: '', model: '', url: '', active: true };
-        this.closeModal();
+        this.closeModal('confirmed');
       },
       error: (error) => {
         console.error('Error adding car:', error);

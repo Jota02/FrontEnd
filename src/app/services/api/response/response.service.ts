@@ -22,12 +22,13 @@ export class ResponsesService {
     const url = this.apiUrl + 'create';
     const body = responses.map(response => {
       return {
-        model_make: response.modelMake,
+        model_make: response.model_make,
         km: response.km,
         year: response.year,
         price: response.price,
         url: response.url,
-        scrap_id_fk: response.scrapIdFk
+        published_date: response.published_date,
+        scrap_id_fk: response.scrap_id_fk
       };
     });
 

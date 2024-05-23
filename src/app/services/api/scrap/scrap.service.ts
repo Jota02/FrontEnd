@@ -29,10 +29,11 @@ export class ScrapService {
     return this.http.get<IResponse[]>(url, { params });
   }
 
-  getById(id: String): Observable<IScrap>  {
+  getById(id: String): Observable<IScrap[]>  {
     const url = this.apiUrl + `get-id/${id}`;
+    console.log(url)
 
-    return this.http.get<IScrap>(url);
+    return this.http.get<IScrap[]>(url);
   }
 
   createScrap(id: String){

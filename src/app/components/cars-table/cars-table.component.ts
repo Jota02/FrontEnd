@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ICar } from '../../model/i-car.model'
 import { ModalController } from '@ionic/angular';
 import { EditCarComponent } from '../edit-car/edit-car.component';
+import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component'
 import { CarService } from 'src/app/services/api/cars/car.service';
 
 @Component({
@@ -24,6 +25,16 @@ export class CarsTableComponent {
       }
     });
     await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.message === 'confirmed') {
+      this.getCars();
+    }
+  }
+
+  getCars() {
+    this.carService.getAllCars().subscribe((cars: ICar[]) => {
+      this.cars = cars;
+    });
   }
 
   //Set active car to false
@@ -33,8 +44,14 @@ export class CarsTableComponent {
   }
 
   //Open history modal
-  openModal(index: number) {
-    console.log('Open')
+  async openScrapHistoryModal(id: String) {
+    const modal = await this.modalController.create({
+      component: ScrapHistoryComponent,
+      componentProps: {
+        id: id
+      }
+    });
+    await modal.present();
   }
 
 

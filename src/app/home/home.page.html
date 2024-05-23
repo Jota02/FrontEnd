@@ -10,8 +10,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Add Car Button -->
   <ion-grid style="margin-left: 2em; margin-right: 2em">
-    <!-- Add Car Button -->
     <ion-row style="margin-top: 2em">
       <ion-col size-xs="3" size-md="2" size-lg="1"> </ion-col>
       <ion-col size-xs="0" size-md="4" size-lg="10"> </ion-col>
@@ -25,120 +25,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- Add cars Button/Modal
-  <app-add-cars></app-add-cars>-->
+
   <!--Cars Table Component-->
   <app-cars-table [cars]="cars"></app-cars-table>
 
-  <!-- Tabela de Pesquisa -->
-  <!--
-  <ion-grid id="Search" style="margin-left: 2em; margin-right: 2em">
-    <ion-row style="background-color: gray; align-items: center">
-      <ion-col size="1"> </ion-col>
-      <ion-col size="1" style="font-weight: bold">Brand</ion-col>
-      <ion-col size="1" style="font-weight: bold">Model</ion-col>
-      <ion-col size="6" style="font-weight: bold">Link StandVirtual</ion-col>
-      <ion-col size="1"></ion-col>
-      <ion-col size="1"></ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
-
-    <ion-row
-      *ngFor="let row of rows; let i = index"
-      style="background-color: lightgray; align-items: center"
-    >
-      <ion-col size="1">
-        <input
-          type="checkbox"
-          [(ngModel)]="row.selected"
-          (click)="toggleSelected(row)"
-        />
-      </ion-col>
-      <ion-col size="1">
-        <ng-container *ngIf="editingIndex === i; else displayBrand">
-          <ion-input type="text" [(ngModel)]="row.brand" />
-        </ng-container>
-        <ng-template #displayBrand> {{ row.brand }} </ng-template></ion-col
-      >
-      <ion-col size="1">
-        <ng-container *ngIf="editingIndex === i; else displayModel">
-          <ion-input type="text" [(ngModel)]="row.model" />
-        </ng-container>
-        <ng-template #displayModel> {{ row.model }} </ng-template>
-      </ion-col>
-      <ion-col size="6">
-        <ng-container *ngIf="editingIndex === i; else displayLink">
-          <ion-input type="text" [(ngModel)]="row.link" />
-        </ng-container>
-        <ng-template #displayLink> {{ row.link }} </ng-template>
-      </ion-col>
-      <ion-col size="1">
-        <span
-          style="font-weight: bold; color: black; cursor: pointer"
-          (click)="edit(i)"
-        >
-          {{ editingIndex === i ? 'Save' : 'Edit' }}
-        </span>
-      </ion-col>
-      <ion-col size="1">
-        <span
-          style="font-weight: bold; color: red; cursor: pointer"
-          (click)="delete(i)"
-          >Delete</span
-        >
-      </ion-col>
-      <ion-col size="1">
-        <span
-          style="font-weight: bold; color: black; cursor: pointer"
-          (click)="openModal(i)"
-          >History</span
-        >
-        <ion-modal
-          [keepContentsMounted]="true"
-          trigger="open-modal"
-          [isOpen]="modalOpenIndex === i"
-          #modal
-        >
-          <ng-template>
-            <ion-header>
-              <ion-toolbar>
-                <ion-buttons slot="start">
-                  <ion-button (click)="modal.dismiss()">Close</ion-button>
-                </ion-buttons>
-                <ion-title style="text-align: center">Historic</ion-title>
-                <ion-buttons slot="end">
-                  <ion-button (click)="deleteContent(i)">Delete</ion-button>
-                </ion-buttons>
-              </ion-toolbar>
-            </ion-header>
-            <ion-content class="ion-padding">
-              <ion-accordion-group>
-                <ion-accordion value="first">
-                  <ion-item slot="header" color="light">
-                    <ion-label>First Accordion</ion-label>
-                  </ion-item>
-                  <div class="ion-padding" slot="content">First Content</div>
-                </ion-accordion>
-                <ion-accordion value="second">
-                  <ion-item slot="header" color="light">
-                    <ion-label>Second Accordion</ion-label>
-                  </ion-item>
-                  <div class="ion-padding" slot="content">Second Content</div>
-                </ion-accordion>
-                <ion-accordion value="third">
-                  <ion-item slot="header" color="light">
-                    <ion-label>Third Accordion</ion-label>
-                  </ion-item>
-                  <div class="ion-padding" slot="content">Third Content</div>
-                </ion-accordion>
-              </ion-accordion-group>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  -->
   <!-- Filtros  -->
   <ion-grid id="Filters">
     <ion-row style="margin-top: 2em">

@@ -1,9 +1,9 @@
 export interface IResponse {
-    modelMake: string;
+    model_make: string;
     km: string;
     year: string;
     price: string;
     url: string;
-    publishedDate: Date;
-    scrapIdFk: string;
+    published_date: Date;
+    scrap_id_fk: string;
   }

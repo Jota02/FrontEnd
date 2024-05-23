@@ -1,0 +1,30 @@
+  <!-- Scrap History Modal -->
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Scrap History</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-accordion-group>
+      <ion-accordion *ngFor="let scrap of scraps">
+        <ion-item slot="header" color="white">
+          {{scrap.date_hour | date : "dd/MM/yyyy HH:mm"}}
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-list *ngFor="let response of history.get(scrap.id)">
+            <ion-item>
+              {{response.model_make}}
+              {{response.km}}
+              {{response.price}}
+              {{response.url}}
+              {{response.published_date | date : "dd/MM/yyyy HH:mm"}}
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </ion-content>

@@ -47,6 +47,12 @@ export class HomePage {
       component: AddCarsComponent
     });
     await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+
+    if (data?.message === 'confirmed') {
+      this.getCars();
+    }
+    
   }
 
   openModal(index: number) {
