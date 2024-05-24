@@ -1,20 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICar } from '../../model/i-car.model'
 import { ModalController } from '@ionic/angular';
 import { EditCarComponent } from '../edit-car/edit-car.component';
 import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component'
 import { CarService } from 'src/app/services/api/cars/car.service';
+import { ScrapingService } from 'src/app/services/scraping/scraping.service';
 
 @Component({
   selector: 'app-cars-table',
   templateUrl: './cars-table.component.html',
   styleUrls: ['./cars-table.component.scss']
 })
-export class CarsTableComponent {
-  @Input() cars: ICar[] = [];
-  editingIndex: number | null = null;
+export class CarsTableComponent implements OnInit {
+  cars: ICar[] = [];
+  selectedCars: Set<ICar> = new Set<ICar>();
+  
 
-  constructor(private modalController: ModalController, private carService: CarService) {}
+  constructor(
+    private modalController: ModalController, 
+    private carService: CarService, 
+    private scrapingService: ScrapingService
+  ) {}
+
+  ngOnInit() {
+      this.getCars();
+  }
 
   //Open Edit Modal
   async openEditCarModal(car: ICar) {
@@ -31,6 +41,7 @@ export class CarsTableComponent {
     }
   }
 
+  //Load all cars to cars var
   getCars() {
     this.carService.getAllCars().subscribe((cars: ICar[]) => {
       this.cars = cars;
@@ -54,6 +65,15 @@ export class CarsTableComponent {
     await modal.present();
   }
 
+  //Car selection
+  toggleSelected(car: ICar, event: any) {
+    if (event.detail.checked) {
+      this.selectedCars.add(car);
+    } else {
+      this.selectedCars.delete(car);
+    }
 
+    this.scrapingService.updateSelectedCars(this.selectedCars);
+  }
 
 }

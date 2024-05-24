@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ScrapService} from '../../services/api/scrap/scrap.service';
+import { ScrapService } from '../../services/api/scrap/scrap.service';
 import { ResponsesService } from 'src/app/services/api/response/response.service';
 import { IScrap } from '../../model/i-scrap.model';
 import { IResponse } from '../../model/i-response.model';

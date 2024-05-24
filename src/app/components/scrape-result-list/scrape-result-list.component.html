@@ -1,19 +1,20 @@
 <ion-grid>
   <ion-row>
-    <ng-container *ngFor="let row of rows">
+    <ng-container *ngFor="let response of responses">
       <ion-col size-md="6" size-lg="6">
         <ion-card>
           <ion-card-header>
             <ion-card-title style="color: black">{{
-              row.modelMake
+              response.model_make
             }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <p>Year: {{ row.year }}</p>
-            <p>Km: {{ row.km }}</p>
-            <p>Price: {{ row.price }} €</p>
+            <p>Year: {{ response.year }}</p>
+            <p>Km: {{ response.km }}</p>
+            <p>Price: {{ response.price }} €</p>
+            <p>Date: {{ response.published_date }}</p>
             <p>
-              Link: <a [href]="row.url" target="_blank">{{ row.url }}</a>
+              Link: <a [href]="response.url" target="_blank">{{ response.url }}</a>
             </p>
           </ion-card-content>
         </ion-card>

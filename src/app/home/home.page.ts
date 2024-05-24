@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit  } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ScrapingService } from '../services/scraping/scraping.service';
 import { CarService } from '../services/api/cars/car.service';
 import { IRequest } from '../model/i-request.model';
@@ -32,10 +32,6 @@ export class HomePage {
     this.rows = storedRows ? JSON.parse(storedRows) : [{}];
   }
 
-  ngOnInit() {
-    this.getCars();
-  }
-
   getCars() {
     this.carService.getAllCars().subscribe((cars: ICar[]) => {
       this.cars = cars;
@@ -57,31 +53,6 @@ export class HomePage {
 
   openModal(index: number) {
     this.modalOpenIndex = index;
-  }
-
-  add() {
-    this.rows.push({ selected: false });
-    localStorage.setItem('rows', JSON.stringify(this.rows));
-  }
-  edit(index: number) {
-    console.log('Editar clicado para a linha', index);
-    if (this.editingIndex === null) {
-      this.editingIndex = index;
-    } else {
-      // Save changes
-      this.editingIndex = null;
-      localStorage.setItem('rows', JSON.stringify(this.rows));
-    }
-  }
-
-  delete(index: number) {
-    console.log('Eliminar clicado', index);
-    this.rows.splice(index, 1);
-    localStorage.setItem('rows', JSON.stringify(this.rows));
-  }
-
-  deleteContent(index: number) {
-    console.log('Histórico da linha', index, 'apagado!');
   }
 
   toggleSelected(row: any) {
@@ -127,7 +98,7 @@ export class HomePage {
 
   async scrape() {
     this.finalData = [];
-    await this.scrapingService.scrape(this.gatherInfo());
+    await this.scrapingService.scrap(this.gatherInfo());
     //await firstValueFrom()
     //await loading.dismiss();
   }

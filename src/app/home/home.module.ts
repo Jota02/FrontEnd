@@ -11,6 +11,7 @@ import { CarsTableComponent } from '../components/cars-table/cars-table.componen
 import { AddCarsComponent } from '../components/add-cars/add-cars.component';
 import { EditCarComponent } from '../components/edit-car/edit-car.component';
 import { ScrapHistoryComponent } from '../components/scrap-history/scrap-history.component'
+import { ScrapComponent } from '../components/scrap/scrap.component';
 
 
 
@@ -28,7 +29,8 @@ import { ScrapHistoryComponent } from '../components/scrap-history/scrap-history
     CarsTableComponent,
     AddCarsComponent,
     EditCarComponent,
-    ScrapHistoryComponent
+    ScrapHistoryComponent,
+    ScrapComponent
   ]
 })
 export class HomePageModule {}

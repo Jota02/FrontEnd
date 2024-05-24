@@ -2,35 +2,41 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { ScrapService } from '../api/scrap/scrap.service';
 import { IRequest } from '../../model/i-request.model';
 import { LoadingController } from '@ionic/angular';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { ICar } from '../../model/i-car.model';
+import { IResponse } from '../../model/i-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScrapingService {
-  dataUpdated: EventEmitter<any> = new EventEmitter<any>();
+  private selectedCarsSubject = new BehaviorSubject<Set<ICar>>(new Set());
+  selectedCars$ = this.selectedCarsSubject.asObservable();
+
+  private responsesSubject = new BehaviorSubject<IResponse[]>([]);
+  responses$ = this.responsesSubject.asObservable();
 
   constructor(
     private scrapService: ScrapService,
     private loadingCtrl: LoadingController
   ) {}
 
-  async scrape(info: IRequest[]) {
+  async scrap(requests: IRequest[]) {
     const loading = await this.showLoading();
-    this.dataUpdated.emit([]);
-    const requests: IRequest[] = info;
-    for (let index = 0; index < requests.length; index++) {
-      const response = await firstValueFrom(
-        this.scrapService.getLast10Cars(requests[index])
-      );
-      this.dataUpdated.emit(response);
-    }
-    requests.forEach(async (request) => {
-      /*this.apiService.getLast10Cars(request)
-        .subscribe(response => {
-          this.dataUpdated.emit(response);
-        });*/
+
+    const responsePromises: Promise<IResponse[]>[] = requests.map(request => {
+      return firstValueFrom(this.scrapService.getLast10Cars(request));
     });
+
+    try {
+      const responses = await Promise.all(responsePromises);
+      const flatResponses = responses.reduce((acc, curr) => acc.concat(curr), []);
+      this.responsesSubject.next(flatResponses); 
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
     await loading.dismiss();
   }
 
@@ -41,5 +47,9 @@ export class ScrapingService {
     });
     await loading.present();
     return loading;
+  }
+
+  updateSelectedCars(selectedCars: Set<ICar>) {
+    this.selectedCarsSubject.next(selectedCars);
   }
 }

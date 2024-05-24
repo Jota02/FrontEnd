@@ -9,9 +9,9 @@
     <ion-col size="1"></ion-col>
   </ion-row>
 
-  <ion-row *ngFor="let car of cars; let i = index" style="background-color: lightgray; align-items: center">
+  <ion-row *ngFor="let car of cars" style="background-color: lightgray; align-items: center">
     <ion-col size="1">
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox (ionChange)="toggleSelected(car, $event)"></ion-checkbox>
     </ion-col>
     <ion-col size="1">{{ car.make }}</ion-col>
     <ion-col size="1">{{ car.model }}</ion-col>

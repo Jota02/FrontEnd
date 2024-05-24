@@ -27,65 +27,10 @@
   </ion-grid>
 
   <!--Cars Table Component-->
-  <app-cars-table [cars]="cars"></app-cars-table>
+  <app-cars-table></app-cars-table>
 
   <!-- Filtros  -->
-  <ion-grid id="Filters">
-    <ion-row style="margin-top: 2em">
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="From(Year)"
-          class="input-field"
-          id="fromYear"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="To(Year)"
-          class="input-field"
-          id="toYear"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="From(Price)"
-          class="input-field"
-          id="fromPrice"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="To(Price)"
-          class="input-field"
-          id="toPrice"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="Km(Up to)"
-          class="input-field"
-          id="km"
-        ></ion-input>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- Botão de Scrap e Export -->
-  <ion-grid style="margin-left: 2em; margin-right: 2em">
-    <ion-row style="margin-top: 2em">
-      <ion-col size="10" style="text-align: center">
-        <ion-button class="button" (click)="scrape()">Scrap</ion-button>
-      </ion-col>
-      <ion-col size="2" style="text-align: center">
-        <ion-button class="button">Export</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <app-scrap></app-scrap>
 
   <!-- Tabela de Resultados -->
   <ion-grid id="Results" style="margin-left: 2em; margin-right: 2em">
