@@ -13,7 +13,7 @@ export class ScrapService {
 
   constructor(private http: HttpClient) { }
 
-  //Scrap Routes
+  //Get 10 recent cars
   getLast10Cars(reqParams: IRequest): Observable<IResponse[]> {
     const params = new HttpParams()
       .set('km', reqParams.km)
@@ -28,12 +28,14 @@ export class ScrapService {
     return this.http.get<IResponse[]>(url, { params });
   }
 
+  //Get scrap history by id
   getById(id: String): Observable<IScrap[]>  {
     const url = this.apiUrl + `get-id/${id}`;
 
     return this.http.get<IScrap[]>(url);
   }
 
+  //Create scrap history entry
   createScrap(id: String) {
     const url = this.apiUrl + 'create';
     const body = {cars_id_fk: id};

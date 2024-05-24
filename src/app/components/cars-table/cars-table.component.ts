@@ -59,7 +59,7 @@ export class CarsTableComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ScrapHistoryComponent,
       componentProps: {
-        id: id
+        carId: id
       }
     });
     await modal.present();

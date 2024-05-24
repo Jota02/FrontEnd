@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IRequest } from '../../model/i-request.model';
 import { ICar } from '../../model/i-car.model'
 import { ScrapingService } from '../../services/scraping/scraping.service';
+import { ScrapService } from '../../services/api/scrap/scrap.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-scrap',
@@ -11,7 +13,7 @@ import { ScrapingService } from '../../services/scraping/scraping.service';
 export class ScrapComponent {
   selectedCars: Set<ICar> = new Set();
 
-  constructor(private scrapingService: ScrapingService) { 
+  constructor(private scrapingService: ScrapingService, private apiScrapService: ScrapService) { 
     this.scrapingService.selectedCars$.subscribe(selectedCars => {
       this.selectedCars = selectedCars;
     });
@@ -51,7 +53,16 @@ export class ScrapComponent {
     return requests;
   }
 
+  createScrapHistory() {
+    const createScrapPromises = Array.from(this.selectedCars).map(car => {
+      return firstValueFrom(this.apiScrapService.createScrap(car.id));
+    });
+  
+    return Promise.all(createScrapPromises);
+  }
+
   async scrap() {
+    await this.createScrapHistory();
     await this.scrapingService.scrap(this.gatherInfo());
   }
 

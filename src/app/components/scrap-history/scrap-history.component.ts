@@ -15,7 +15,11 @@ export class ScrapHistoryComponent  implements OnInit {
   scraps: IScrap[] = [];
   history: Map<String, IResponse[]> = new Map;
 
-  constructor(private scrapService: ScrapService, private responseService: ResponsesService,  private modalController: ModalController) { }
+  constructor(
+    private scrapService: ScrapService, 
+    private responseService: ResponsesService,  
+    private modalController: ModalController
+  ) { }
 
   ngOnInit() {
     this.loadHistory(this.carId);

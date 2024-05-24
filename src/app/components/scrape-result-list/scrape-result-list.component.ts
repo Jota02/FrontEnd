@@ -15,6 +15,6 @@ export class ScrapeResultListComponent implements OnInit {
   ngOnInit(){
     this.scrapingService.responses$.subscribe(responses => {
       this.responses = responses;
-    })
+    });
   }
 }
