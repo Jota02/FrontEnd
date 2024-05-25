@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ScrapService } from '../../services/api/scrap/scrap.service';
-import { ResponsesService } from 'src/app/services/api/response/response.service';
+import { ResponseService } from 'src/app/services/api/response/response.service';
 import { IScrap } from '../../model/i-scrap.model';
 import { IResponse } from '../../model/i-response.model';
 import { ModalController } from '@ionic/angular';
@@ -17,7 +17,7 @@ export class ScrapHistoryComponent  implements OnInit {
 
   constructor(
     private scrapService: ScrapService, 
-    private responseService: ResponsesService,  
+    private responseService: ResponseService,  
     private modalController: ModalController
   ) { }
 

@@ -3,7 +3,9 @@ import { IRequest } from '../../model/i-request.model';
 import { ICar } from '../../model/i-car.model'
 import { ScrapingService } from '../../services/scraping/scraping.service';
 import { ScrapService } from '../../services/api/scrap/scrap.service';
+import { ResponseService } from '../../services/api/response/response.service';
 import { firstValueFrom } from 'rxjs';
+import { IResponse } from 'src/app/model/i-response.model';
 
 @Component({
   selector: 'app-scrap',
@@ -12,10 +14,18 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ScrapComponent {
   selectedCars: Set<ICar> = new Set();
+  responses: IResponse[] = [];
 
-  constructor(private scrapingService: ScrapingService, private apiScrapService: ScrapService) { 
+  constructor(
+    private scrapingService: ScrapingService,
+     private apiScrapService: ScrapService,
+     private responseService: ResponseService
+    ) { 
     this.scrapingService.selectedCars$.subscribe(selectedCars => {
       this.selectedCars = selectedCars;
+    });
+    this.scrapingService.responses$.subscribe(responses => {
+      this.responses = responses;
     });
   }
 
@@ -65,6 +75,7 @@ export class ScrapComponent {
   async scrap() {
     const scrap_ids = await this.createScrapHistory();
     await this.scrapingService.scrap(this.gatherInfo(), scrap_ids);
+    this.responseService.createResponses(this.responses).subscribe();;
   }
 
 }

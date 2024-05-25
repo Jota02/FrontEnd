@@ -6,7 +6,7 @@ import { IResponse } from '../../../model/i-response.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ResponsesService {
+export class ResponseService {
 
   private apiUrl = "http://localhost:8080/api/responses/";
 

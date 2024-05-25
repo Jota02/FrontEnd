@@ -1,6 +1,5 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ScrapService } from '../api/scrap/scrap.service';
-import { DateParserService } from '../date-parser/date-parser.service';
 import { IRequest } from '../../model/i-request.model';
 import { LoadingController } from '@ionic/angular';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
@@ -19,7 +18,6 @@ export class ScrapingService {
 
   constructor(
     private scrapService: ScrapService,
-    private dateParserService: DateParserService,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -31,10 +29,7 @@ export class ScrapingService {
         const responses = await firstValueFrom(this.scrapService.getLast10Cars(request));
 
         return responses.map(response => {
-          const published_date = response.published_date.toString();
-          const date = this.dateParserService.parseDate(published_date);
-
-          return { ...response, published_date: date, scrap_id_fk: scrap_id };
+          return { ...response, scrap_id_fk: scrap_id };
         });
       });
 
