@@ -13,6 +13,9 @@
       <ion-accordion *ngFor="let scrap of scraps">
         <ion-item slot="header" color="white">
           {{scrap.date_hour | date : "dd/MM/yyyy HH:mm"}}
+          <span (click)="delete(scrap.id)" style="font-weight: bold; color: red; cursor: pointer">
+            Delete
+          </span>
         </ion-item>
         <div class="ion-padding" slot="content">
           <ion-list *ngFor="let response of history.get(scrap.id)">

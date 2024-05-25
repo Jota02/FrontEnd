@@ -32,8 +32,12 @@ export class ResponseService {
       };
     });
 
-    console.log(body);
-    console.log(url);
     return this.http.post(url, body);
+  }
+
+  deleteResponses(id: String) {
+    const url = this.apiUrl + `delete/${id}`;
+
+    return this.http.delete(url);
   }
 }

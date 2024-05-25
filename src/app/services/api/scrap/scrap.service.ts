@@ -42,4 +42,10 @@ export class ScrapService {
 
     return this.http.post<{ id: string }>(url, body);
   }
+
+  deleteScrap(id: String) {
+    const url = this.apiUrl + `delete/${id}`;
+
+    return this.http.delete(url);
+  }
 }
