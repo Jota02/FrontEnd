@@ -18,7 +18,7 @@ export class ResponsesService {
     return this.http.get<IResponse[]>(url);
   }
 
-  createScrap(responses: IResponse[]){
+  createResponses(responses: IResponse[]) {
     const url = this.apiUrl + 'create';
     const body = responses.map(response => {
       return {
@@ -32,6 +32,8 @@ export class ResponsesService {
       };
     });
 
+    console.log(body);
+    console.log(url);
     return this.http.post(url, body);
   }
 }

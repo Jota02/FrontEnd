@@ -95,11 +95,4 @@ export class HomePage {
 
     return info;
   }
-
-  async scrape() {
-    this.finalData = [];
-    await this.scrapingService.scrap(this.gatherInfo());
-    //await firstValueFrom()
-    //await loading.dismiss();
-  }
 }

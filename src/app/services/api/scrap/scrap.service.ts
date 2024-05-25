@@ -40,6 +40,6 @@ export class ScrapService {
     const url = this.apiUrl + 'create';
     const body = {cars_id_fk: id};
 
-    return this.http.post(url, body);
+    return this.http.post<{ id: string }>(url, body);
   }
 }

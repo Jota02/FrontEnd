@@ -53,17 +53,18 @@ export class ScrapComponent {
     return requests;
   }
 
-  createScrapHistory() {
-    const createScrapPromises = Array.from(this.selectedCars).map(car => {
-      return firstValueFrom(this.apiScrapService.createScrap(car.id));
+  createScrapHistory(): Promise<string[]> {
+    const createScrapPromises = Array.from(this.selectedCars).map(async car => {
+      const res = await firstValueFrom(this.apiScrapService.createScrap(car.id));
+      return res.id;
     });
   
     return Promise.all(createScrapPromises);
   }
 
   async scrap() {
-    await this.createScrapHistory();
-    await this.scrapingService.scrap(this.gatherInfo());
+    const scrap_ids = await this.createScrapHistory();
+    await this.scrapingService.scrap(this.gatherInfo(), scrap_ids);
   }
 
 }
