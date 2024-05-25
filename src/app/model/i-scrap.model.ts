@@ -1,3 +1,4 @@
+//Scrap Interface
 export interface IScrap {
     id: string;
     date_hour: Date;

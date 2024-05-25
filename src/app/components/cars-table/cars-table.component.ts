@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ICar } from '../../model/i-car.model'
 import { ModalController } from '@ionic/angular';
+
+import { CarService } from '../../services/api/cars/car.service';
+import { ScrapingService } from '../../services/scraping/scraping.service';
+
 import { EditCarComponent } from '../edit-car/edit-car.component';
 import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component'
-import { CarService } from 'src/app/services/api/cars/car.service';
-import { ScrapingService } from 'src/app/services/scraping/scraping.service';
+
+import { ICar } from '../../model/i-car.model'
+
 
 @Component({
   selector: 'app-cars-table',
@@ -26,7 +30,7 @@ export class CarsTableComponent implements OnInit {
       this.getCars();
   }
 
-  //Open Edit Modal
+  //openEditCarModal - Calls edit-car component / reloads cars table on modal dismiss
   async openEditCarModal(car: ICar) {
     const modal = await this.modalController.create({
       component: EditCarComponent,
@@ -35,26 +39,27 @@ export class CarsTableComponent implements OnInit {
       }
     });
     await modal.present();
+
     const { data, role } = await modal.onWillDismiss();
     if (data?.message === 'confirmed') {
       this.getCars();
     }
   }
 
-  //Load all cars to cars var
+  //getCars - Load all cars to cars array
   getCars() {
     this.carService.getAllCars().subscribe((cars: ICar[]) => {
       this.cars = cars;
     });
   }
 
-  //Set active car to false
+  //deactivateCar - Calls Put request to set car active field to false
   deactivateCar(car: ICar) {
     car.active = false;
     this.carService.updateCar(car).subscribe();
   }
 
-  //Open history modal
+  //openEditCarModal - Calls scrap-history component 
   async openScrapHistoryModal(id: String) {
     const modal = await this.modalController.create({
       component: ScrapHistoryComponent,

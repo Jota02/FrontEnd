@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+
 import { IResponse } from '../../../model/i-response.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +15,14 @@ export class ResponseService {
 
   constructor(private http: HttpClient) { }
 
+  //getById - Get Request - get responses by scrap id
   getById(id: String): Observable<IResponse[]>  {
     const url = this.apiUrl + `get-id/${id}`;
 
     return this.http.get<IResponse[]>(url);
   }
 
+  //createResponses - Post Request - create responses
   createResponses(responses: IResponse[]) {
     const url = this.apiUrl + 'create';
     const body = responses.map(response => {
@@ -35,6 +40,7 @@ export class ResponseService {
     return this.http.post(url, body);
   }
 
+  //deleteResponses - Delete Request - delete responses by scrap id
   deleteResponses(id: String) {
     const url = this.apiUrl + `delete/${id}`;
 

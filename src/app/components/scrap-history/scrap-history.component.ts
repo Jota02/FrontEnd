@@ -1,10 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
+import { switchMap } from 'rxjs';
+
 import { ScrapService } from '../../services/api/scrap/scrap.service';
-import { ResponseService } from 'src/app/services/api/response/response.service';
+import { ResponseService } from '../../services/api/response/response.service';
+
 import { IScrap } from '../../model/i-scrap.model';
 import { IResponse } from '../../model/i-response.model';
-import { ModalController } from '@ionic/angular';
-import { switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-scrap-history',
@@ -13,6 +17,7 @@ import { switchMap } from 'rxjs';
 })
 export class ScrapHistoryComponent  implements OnInit {
   @Input() carId!: String;
+  
   scraps: IScrap[] = [];
   history: Map<String, IResponse[]> = new Map;
 
@@ -26,6 +31,7 @@ export class ScrapHistoryComponent  implements OnInit {
     this.loadHistory(this.carId);
   }
 
+  //loadHistory - Loads Scrap table entries for a specific id
   loadHistory(id: String) {
     this.scrapService.getById(id).subscribe({
       next: (scrap: IScrap[]) => {
@@ -35,6 +41,7 @@ export class ScrapHistoryComponent  implements OnInit {
     });
   }
 
+  //loadResponses - Loads Responses table entries for each specified scrap id
   loadResponses() {
     this.scraps.forEach(scrap => {
       this.responseService.getById(scrap.id).subscribe({
@@ -45,6 +52,7 @@ export class ScrapHistoryComponent  implements OnInit {
     });
   }
 
+  //delete - Deletes Responses and Scrap tables entries for a specific scrap id
   delete(id: String) {
     this.responseService.deleteResponses(id).pipe(
       switchMap(() => this.scrapService.deleteScrap(id))
@@ -58,6 +66,7 @@ export class ScrapHistoryComponent  implements OnInit {
     });
   }
 
+  //closeModal - Closes modal
   closeModal() {
     this.modalController.dismiss();
   }

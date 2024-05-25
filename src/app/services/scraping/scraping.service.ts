@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ScrapService } from '../api/scrap/scrap.service';
-import { IRequest } from '../../model/i-request.model';
 import { LoadingController } from '@ionic/angular';
+
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
+
+import { ScrapService } from '../api/scrap/scrap.service';
+
+import { IRequest } from '../../model/i-request.model';
 import { ICar } from '../../model/i-car.model';
 import { IResponse } from '../../model/i-response.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +25,10 @@ export class ScrapingService {
     private loadingCtrl: LoadingController
   ) {}
 
+  //scrap - Sends scrap request, receives response and adds generated scrap_id
   async scrap(requests: IRequest[], scrap_ids: string[]) {
     const loading = await this.showLoading();
+
     try {
       const responsePromises: Promise<IResponse[]>[] = requests.map(async (request, i) => {
         const scrap_id = scrap_ids[i];
@@ -45,6 +51,7 @@ export class ScrapingService {
     await loading.dismiss();
   }
 
+  //showLoading - Loading controller settings
   async showLoading() {
     const loading = await this.loadingCtrl.create({
       spinner: 'circles',
@@ -54,6 +61,7 @@ export class ScrapingService {
     return loading;
   }
 
+  //updateSelectedCars - Gets latest version of selectedCars array
   updateSelectedCars(selectedCars: Set<ICar>) {
     this.selectedCarsSubject.next(selectedCars);
   }

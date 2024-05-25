@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ScrapingService } from '../../services/scraping/scraping.service';
+
 import { IResponse } from '../../model/i-response.model';
 
+
 @Component({
-  selector: 'app-scrape-result-list',
-  templateUrl: './scrape-result-list.component.html',
-  styleUrls: ['./scrape-result-list.component.scss'],
+  selector: 'app-scrap-result-list',
+  templateUrl: './scrap-result-list.component.html',
+  styleUrls: ['./scrap-result-list.component.scss'],
 })
-export class ScrapeResultListComponent implements OnInit {
+export class ScrapResultListComponent implements OnInit {
   responses: IResponse[] = [];
 
   constructor(private scrapingService: ScrapingService) {}

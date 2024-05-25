@@ -1,3 +1,4 @@
+//Scrap Responses Interface
 export interface IResponse {
     model_make: string;
     km: string;

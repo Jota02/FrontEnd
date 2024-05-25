@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { IRequest } from '../../model/i-request.model';
-import { ICar } from '../../model/i-car.model'
+import { Component } from '@angular/core';
+
+import { firstValueFrom } from 'rxjs';
+
 import { ScrapingService } from '../../services/scraping/scraping.service';
 import { ScrapService } from '../../services/api/scrap/scrap.service';
 import { ResponseService } from '../../services/api/response/response.service';
-import { firstValueFrom } from 'rxjs';
-import { IResponse } from 'src/app/model/i-response.model';
+
+import { IRequest } from '../../model/i-request.model';
+import { ICar } from '../../model/i-car.model'
+import { IResponse } from '../../model/i-response.model';
+
 
 @Component({
   selector: 'app-scrap',
@@ -18,9 +22,10 @@ export class ScrapComponent {
 
   constructor(
     private scrapingService: ScrapingService,
-     private apiScrapService: ScrapService,
-     private responseService: ResponseService
-    ) { 
+    private apiScrapService: ScrapService,
+    private responseService: ResponseService
+  ) 
+  { 
     this.scrapingService.selectedCars$.subscribe(selectedCars => {
       this.selectedCars = selectedCars;
     });
@@ -29,6 +34,7 @@ export class ScrapComponent {
     });
   }
 
+  //getInputValue - Gets the value from each input for a specific id
   getInputValue(id: string) {
     const input = document.getElementById(id) as HTMLInputElement;
     const value = input ? input.value : 'null';
@@ -36,6 +42,7 @@ export class ScrapComponent {
     return value;
   }
 
+  //gatherInfo - Combines filters input with selectedCars to build requests
   gatherInfo() {
     const requests: IRequest[] = [];
     const selectedCars = this.selectedCars;
@@ -63,6 +70,7 @@ export class ScrapComponent {
     return requests;
   }
 
+  //createScrapHistory - Calls post request for scraps for each selected car and returns all scraps ids generated
   createScrapHistory(): Promise<string[]> {
     const createScrapPromises = Array.from(this.selectedCars).map(async car => {
       const res = await firstValueFrom(this.apiScrapService.createScrap(car.id));
@@ -72,6 +80,7 @@ export class ScrapComponent {
     return Promise.all(createScrapPromises);
   }
 
+  //scrap -  Passes requests and scrap ids to scrap function / Calls post request for each response received
   async scrap() {
     const scrap_ids = await this.createScrapHistory();
     await this.scrapingService.scrap(this.gatherInfo(), scrap_ids);

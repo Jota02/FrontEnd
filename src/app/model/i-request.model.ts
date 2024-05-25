@@ -1,3 +1,4 @@
+//Scrap Request Interface
 export interface IRequest {
     km: string;
     fromYear: string;

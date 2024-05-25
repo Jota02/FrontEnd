@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+
 import { ICar } from '../../../model/i-car.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +15,14 @@ export class CarService {
 
   constructor(private http: HttpClient) { }
 
+  //getAllCars - Get Request - get all car entries
   getAllCars(): Observable<ICar[]> {
     const url = this.apiUrl + "get-all";
 
     return this.http.get<ICar[]>(url);
   }
 
+  //createCar - Post Request - create car entry
   createCar(car: ICar): Observable<ICar>{
     const url = this.apiUrl + 'create';
     const body = {
@@ -29,6 +34,7 @@ export class CarService {
     return this.http.post<ICar>(url, body);
   }
 
+  //updateCar - Put Request - update car info for one car
   updateCar(car: ICar): Observable<ICar>{
     const url = this.apiUrl + 'update';
     const body = {
