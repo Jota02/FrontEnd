@@ -5,29 +5,27 @@ import { CarService } from '../../services/api/cars/car.service';
 import { ScrapingService } from '../../services/scraping/scraping.service';
 
 import { EditCarComponent } from '../edit-car/edit-car.component';
-import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component'
+import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component';
 
-import { ICar } from '../../model/i-car.model'
-
+import { ICar } from '../../model/i-car.model';
 
 @Component({
   selector: 'app-cars-table',
   templateUrl: './cars-table.component.html',
-  styleUrls: ['./cars-table.component.scss']
+  styleUrls: ['./cars-table.component.scss'],
 })
 export class CarsTableComponent implements OnInit {
   cars: ICar[] = [];
   selectedCars: Set<ICar> = new Set<ICar>();
-  
 
   constructor(
-    private modalController: ModalController, 
-    private carService: CarService, 
+    private modalController: ModalController,
+    private carService: CarService,
     private scrapingService: ScrapingService
   ) {}
 
   ngOnInit() {
-      this.getCars();
+    this.getCars();
   }
 
   //openEditCarModal - Calls edit-car component / reloads cars table on modal dismiss
@@ -35,8 +33,8 @@ export class CarsTableComponent implements OnInit {
     const modal = await this.modalController.create({
       component: EditCarComponent,
       componentProps: {
-        car: car
-      }
+        car: car,
+      },
     });
     await modal.present();
 
@@ -55,17 +53,17 @@ export class CarsTableComponent implements OnInit {
 
   //deactivateCar - Calls Put request to set car active field to false
   deactivateCar(car: ICar) {
-    car.active = false;
+    car.active = !car.active;
     this.carService.updateCar(car).subscribe();
   }
 
-  //openEditCarModal - Calls scrap-history component 
+  //openEditCarModal - Calls scrap-history component
   async openScrapHistoryModal(id: String) {
     const modal = await this.modalController.create({
       component: ScrapHistoryComponent,
       componentProps: {
-        carId: id
-      }
+        carId: id,
+      },
     });
     await modal.present();
   }
@@ -80,5 +78,4 @@ export class CarsTableComponent implements OnInit {
 
     this.scrapingService.updateSelectedCars(this.selectedCars);
   }
-
 }

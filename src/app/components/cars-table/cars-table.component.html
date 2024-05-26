@@ -1,4 +1,4 @@
-<ion-grid id="cars" style="margin-left: 2em; margin-right: 2em;">
+<ion-grid id="cars" style="margin-left: 2em; margin-right: 2em">
   <ion-row style="background-color: gray; align-items: center">
     <ion-col size="1"> </ion-col>
     <ion-col size="1" style="font-weight: bold">Brand</ion-col>
@@ -9,7 +9,7 @@
     <ion-col size="1"></ion-col>
   </ion-row>
 
-  <ion-row *ngFor="let car of cars" style="background-color: lightgray; align-items: center">
+  <ion-row id="Search" *ngFor="let car of cars" style="align-items: center">
     <ion-col size="1">
       <ion-checkbox (ionChange)="toggleSelected(car, $event)"></ion-checkbox>
     </ion-col>
@@ -17,17 +17,26 @@
     <ion-col size="1">{{ car.model }}</ion-col>
     <ion-col size="6">{{ car.url }}</ion-col>
     <ion-col size="1">
-      <span (click)="openEditCarModal(car)" style="font-weight: bold; color: black; cursor: pointer">
+      <span
+        (click)="openEditCarModal(car)"
+        style="font-weight: bold; color: black; cursor: pointer"
+      >
         Edit
       </span>
     </ion-col>
     <ion-col size="1">
-      <span (click)="deactivateCar(car)" style="font-weight: bold; color: red; cursor: pointer">
-        Deactivate
+      <span
+        (click)="deactivateCar(car)"
+        style="font-weight: bold; color: red; cursor: pointer"
+      >
+        {{ car.active ? "Deactivate" : "Activate" }}
       </span>
     </ion-col>
     <ion-col size="1">
-      <span (click)="openScrapHistoryModal(car.id)" style="font-weight: bold; color: black; cursor: pointer">
+      <span
+        (click)="openScrapHistoryModal(car.id)"
+        style="font-weight: bold; color: black; cursor: pointer"
+      >
         History
       </span>
     </ion-col>
