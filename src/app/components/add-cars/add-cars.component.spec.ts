@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ScrapeResultListComponent } from './scrape-result-list.component';
+import { AddCarsComponent } from './add-cars.component';
 
-describe('ScrapeResultListComponent', () => {
-  let component: ScrapeResultListComponent;
-  let fixture: ComponentFixture<ScrapeResultListComponent>;
+describe('AddCarsComponent', () => {
+  let component: AddCarsComponent;
+  let fixture: ComponentFixture<AddCarsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScrapeResultListComponent ],
+      declarations: [ AddCarsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ScrapeResultListComponent);
+    fixture = TestBed.createComponent(AddCarsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

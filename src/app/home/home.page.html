@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Botão de ADD -->
+  <!-- Add Car Button -->
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 2em">
       <ion-col size-xs="3" size-md="2" size-lg="1"> </ion-col>
@@ -21,179 +21,19 @@
         size-lg="1"
         style="text-align: right; border: none"
       >
-        <ion-button class="button" (click)="add()">Add</ion-button>
+        <ion-button class="button" style="color: white; font-weight: bold;" (click)="openAddCarModal()">Add</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- Tabela de Pesquisa -->
-  <ion-grid id="Search" style="margin-left: 2em; margin-right: 2em">
-    <ion-row style="background-color: gray; align-items: center">
-      <ion-col size="1"> </ion-col>
-      <ion-col size="1" style="font-weight: bold">Brand</ion-col>
-      <ion-col size="1" style="font-weight: bold">Model</ion-col>
-      <ion-col size="6" style="font-weight: bold">Link StandVirtual</ion-col>
-      <ion-col size="1"></ion-col>
-      <ion-col size="1"></ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+  <!-- Cars Table -->
+  <app-cars-table></app-cars-table>
 
-    <ion-row
-      *ngFor="let row of rows; let i = index"
-      style="background-color: lightgray; align-items: center"
-    >
-      <ion-col size="1">
-        <input
-          type="checkbox"
-          [(ngModel)]="row.selected"
-          (click)="toggleSelected(row)"
-        />
-      </ion-col>
-      <ion-col size="1">
-        <ng-container *ngIf="editingIndex === i; else displayBrand">
-          <ion-input type="text" [(ngModel)]="row.brand" />
-        </ng-container>
-        <ng-template #displayBrand> {{ row.brand }} </ng-template></ion-col
-      >
-      <ion-col size="1">
-        <ng-container *ngIf="editingIndex === i; else displayModel">
-          <ion-input type="text" [(ngModel)]="row.model" />
-        </ng-container>
-        <ng-template #displayModel> {{ row.model }} </ng-template>
-      </ion-col>
-      <ion-col size="6">
-        <ng-container *ngIf="editingIndex === i; else displayLink">
-          <ion-input type="text" [(ngModel)]="row.link" />
-        </ng-container>
-        <ng-template #displayLink> {{ row.link }} </ng-template>
-      </ion-col>
-      <ion-col size="1">
-        <span
-          style="font-weight: bold; color: black; cursor: pointer"
-          (click)="edit(i)"
-        >
-          {{ editingIndex === i ? 'Save' : 'Edit' }}
-        </span>
-      </ion-col>
-      <ion-col size="1">
-        <span
-          style="font-weight: bold; color: red; cursor: pointer"
-          (click)="delete(i)"
-          >Delete</span
-        >
-      </ion-col>
-      <ion-col size="1">
-        <span
-          style="font-weight: bold; color: black; cursor: pointer"
-          (click)="openModal(i)"
-          >History</span
-        >
-        <ion-modal
-          [keepContentsMounted]="true"
-          trigger="open-modal"
-          [isOpen]="modalOpenIndex === i"
-          #modal
-        >
-          <ng-template>
-            <ion-header>
-              <ion-toolbar>
-                <ion-buttons slot="start">
-                  <ion-button (click)="modal.dismiss()">Close</ion-button>
-                </ion-buttons>
-                <ion-title style="text-align: center">Historic</ion-title>
-                <ion-buttons slot="end">
-                  <ion-button (click)="deleteContent(i)">Delete</ion-button>
-                </ion-buttons>
-              </ion-toolbar>
-            </ion-header>
-            <ion-content class="ion-padding">
-              <ion-accordion-group>
-                <ion-accordion value="first">
-                  <ion-item slot="header" color="light">
-                    <ion-label>First Accordion</ion-label>
-                  </ion-item>
-                  <div class="ion-padding" slot="content">First Content</div>
-                </ion-accordion>
-                <ion-accordion value="second">
-                  <ion-item slot="header" color="light">
-                    <ion-label>Second Accordion</ion-label>
-                  </ion-item>
-                  <div class="ion-padding" slot="content">Second Content</div>
-                </ion-accordion>
-                <ion-accordion value="third">
-                  <ion-item slot="header" color="light">
-                    <ion-label>Third Accordion</ion-label>
-                  </ion-item>
-                  <div class="ion-padding" slot="content">Third Content</div>
-                </ion-accordion>
-              </ion-accordion-group>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <!-- Filters/Scrap Button  -->
+  <app-scrap></app-scrap>
 
-  <!-- Filtros  -->
-  <ion-grid id="Filters">
-    <ion-row style="margin-top: 2em">
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="From(Year)"
-          class="input-field"
-          id="fromYear"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="To(Year)"
-          class="input-field"
-          id="toYear"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="From(Price)"
-          class="input-field"
-          id="fromPrice"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="To(Price)"
-          class="input-field"
-          id="toPrice"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="1">
-        <ion-input
-          type="number"
-          placeholder="Km(Up to)"
-          class="input-field"
-          id="km"
-        ></ion-input>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- Botão de Scrap e Export -->
-  <ion-grid style="margin-left: 2em; margin-right: 2em">
-    <ion-row style="margin-top: 2em">
-      <ion-col size="10" style="text-align: center">
-        <ion-button class="button" (click)="scrape()">Scrap</ion-button>
-      </ion-col>
-      <ion-col size="2" style="text-align: center">
-        <ion-button class="button">Export</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- Tabela de Resultados -->
+  <!-- Scrap Results-->
   <ion-grid id="Results" style="margin-left: 2em; margin-right: 2em">
-    <app-scrape-result-list></app-scrape-result-list>
+    <app-scrap-result-list></app-scrap-result-list> 
   </ion-grid>
 </ion-content>
