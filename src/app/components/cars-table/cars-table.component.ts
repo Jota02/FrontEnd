@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 import { CarService } from '../../services/api/cars/car.service';
@@ -14,9 +20,11 @@ import { ICar } from '../../model/i-car.model';
   templateUrl: './cars-table.component.html',
   styleUrls: ['./cars-table.component.scss'],
 })
-export class CarsTableComponent implements OnInit {
+export class CarsTableComponent implements OnInit, OnChanges {
+  @Input() filter: string | undefined; // Add Input property for filter
   cars: ICar[] = [];
   selectedCars: Set<ICar> = new Set<ICar>();
+  filteredCars: ICar[] = [];
 
   constructor(
     private modalController: ModalController,
@@ -26,6 +34,12 @@ export class CarsTableComponent implements OnInit {
 
   ngOnInit() {
     this.getCars();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['filter']) {
+      this.applyFilter();
+    }
   }
 
   //openEditCarModal - Calls edit-car component / reloads cars table on modal dismiss
@@ -48,13 +62,16 @@ export class CarsTableComponent implements OnInit {
   getCars() {
     this.carService.getAllCars().subscribe((cars: ICar[]) => {
       this.cars = cars;
+      this.applyFilter();
     });
   }
 
   //deactivateCar - Calls Put request to set car active field to false
   deactivateCar(car: ICar) {
     car.active = !car.active;
-    this.carService.updateCar(car).subscribe();
+    this.carService.updateCar(car).subscribe(() => {
+      this.applyFilter();
+    });
   }
 
   //openEditCarModal - Calls scrap-history component
@@ -77,5 +94,15 @@ export class CarsTableComponent implements OnInit {
     }
 
     this.scrapingService.updateSelectedCars(this.selectedCars);
+  }
+
+  applyFilter() {
+    if (this.filter === 'Active') {
+      this.filteredCars = this.cars.filter((car) => car.active);
+    } else if (this.filter === 'NonActive') {
+      this.filteredCars = this.cars.filter((car) => !car.active);
+    } else {
+      this.filteredCars = this.cars;
+    }
   }
 }

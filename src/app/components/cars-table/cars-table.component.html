@@ -9,7 +9,11 @@
     <ion-col size="1"></ion-col>
   </ion-row>
 
-  <ion-row id="Search" *ngFor="let car of cars" style="align-items: center">
+  <ion-row
+    id="Search"
+    *ngFor="let car of filteredCars"
+    style="align-items: center"
+  >
     <ion-col size="1">
       <ion-checkbox (ionChange)="toggleSelected(car, $event)"></ion-checkbox>
     </ion-col>

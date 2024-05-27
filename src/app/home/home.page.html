@@ -14,7 +14,11 @@
   <ion-grid style="margin-left: 2em; margin-right: 2em">
     <ion-row style="margin-top: 1em">
       <ion-col size-xs="9" size-md="4" size-lg="3">
-        <ion-segment id="active" value="Active">
+        <ion-segment
+          id="active"
+          value="Active"
+          (ionChange)="segmentChanged($event)"
+        >
           <ion-segment-button value="Active">
             <ion-label>Active</ion-label>
           </ion-segment-button>
@@ -34,14 +38,15 @@
           class="button"
           style="color: white; font-weight: bold"
           (click)="openAddCarModal()"
-          >Add</ion-button
         >
+          Add
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <!-- Cars Table -->
-  <app-cars-table></app-cars-table>
+  <app-cars-table [filter]="segmentValue"></app-cars-table>
 
   <!-- Filters/Scrap Button  -->
   <app-scrap></app-scrap>
