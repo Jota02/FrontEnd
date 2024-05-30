@@ -70,7 +70,7 @@ export class ScrapHistoryComponent implements OnInit {
       message: 'History successfully deleted!',
       duration: 1000,
       position: 'middle',
-      cssClass: '     ',
+      cssClass: 'custom-toast',
     });
     await toast.present();
   }

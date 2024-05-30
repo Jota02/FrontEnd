@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 
 import { CarService } from '../../services/api/cars/car.service';
@@ -67,11 +61,16 @@ export class CarsTableComponent implements OnInit, OnChanges {
     });
   }
 
-  //deactivateCar - Calls Put request to set car active field to false
-  deactivateCar(car: ICar) {
+  //update - Calls Put request to set car active field to its inverse
+  update(car: ICar) {
     car.active = !car.active;
     this.carService.updateCar(car).subscribe(() => {
       this.applyFilter();
+      if(car.active === true) {
+        this.showToast('Car successfully activated!');
+      } else {
+        this.showToast('Car successfully deactivated!');
+      }
     });
   }
 
@@ -100,12 +99,8 @@ export class CarsTableComponent implements OnInit, OnChanges {
   applyFilter() {
     if (this.filter === 'Active') {
       this.filteredCars = this.cars.filter((car) => car.active);
-      this.showToast('Car successfully deactivated!');
     } else if (this.filter === 'NonActive') {
       this.filteredCars = this.cars.filter((car) => !car.active);
-      this.showToast('Car successfully activated!');
-    } else {
-      this.filteredCars = this.cars;
     }
   }
 
@@ -114,7 +109,7 @@ export class CarsTableComponent implements OnInit, OnChanges {
       message: msg,
       duration: 1000,
       position: 'middle',
-      cssClass: '     ',
+      cssClass: 'custom-toast'
     });
     await toast.present();
   }
