@@ -7,7 +7,6 @@ import { AddCarsComponent } from '../components/add-cars/add-cars.component';
 
 import { ICar } from '../model/i-car.model';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -15,6 +14,7 @@ import { ICar } from '../model/i-car.model';
 })
 export class HomePage {
   cars: ICar[] = [];
+  segmentValue: string = 'Active'; // Default segment value
 
   constructor(
     private carService: CarService,
@@ -29,7 +29,7 @@ export class HomePage {
 
   async openAddCarModal() {
     const modal = await this.modalController.create({
-      component: AddCarsComponent
+      component: AddCarsComponent,
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -37,7 +37,9 @@ export class HomePage {
     if (data?.message === 'confirmed') {
       this.getCars();
     }
-    
   }
 
+  segmentChanged(event: any) {
+    this.segmentValue = event.detail.value; // Update the segment value
+  }
 }

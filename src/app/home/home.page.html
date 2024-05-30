@@ -12,28 +12,47 @@
 <ion-content [fullscreen]="true">
   <!-- Add Car Button -->
   <ion-grid style="margin-left: 2em; margin-right: 2em">
-    <ion-row style="margin-top: 2em">
-      <ion-col size-xs="3" size-md="2" size-lg="1"> </ion-col>
-      <ion-col size-xs="0" size-md="4" size-lg="10"> </ion-col>
+    <ion-row style="margin-top: 1em">
+      <ion-col size-xs="9" size-md="4" size-lg="3">
+        <ion-segment
+          id="active"
+          value="Active"
+          (ionChange)="segmentChanged($event)"
+        >
+          <ion-segment-button value="Active">
+            <ion-label>Active</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="NonActive">
+            <ion-label>Non Active</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+      <ion-col size-xs="1" size-md="4" size-lg="8"> </ion-col>
       <ion-col
-        size-xs="1"
-        size-md="1"
+        size-xs="2"
+        size-md="4"
         size-lg="1"
         style="text-align: right; border: none"
       >
-        <ion-button class="button" style="color: white; font-weight: bold;" (click)="openAddCarModal()">Add</ion-button>
+        <ion-button
+          class="button"
+          style="color: white; font-weight: bold"
+          (click)="openAddCarModal()"
+        >
+          Add
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <!-- Cars Table -->
-  <app-cars-table></app-cars-table>
+  <app-cars-table [filter]="segmentValue"></app-cars-table>
 
   <!-- Filters/Scrap Button  -->
   <app-scrap></app-scrap>
 
   <!-- Scrap Results-->
   <ion-grid id="Results" style="margin-left: 2em; margin-right: 2em">
-    <app-scrap-result-list></app-scrap-result-list> 
+    <app-scrap-result-list></app-scrap-result-list>
   </ion-grid>
 </ion-content>

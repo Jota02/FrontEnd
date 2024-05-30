@@ -1,33 +1,60 @@
-  <!-- Scrap History Modal -->
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Scrap History</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="closeModal()">Close</ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-accordion-group>
-      <ion-accordion *ngFor="let scrap of scraps">
-        <ion-item slot="header" color="white">
-          {{scrap.date_hour | date : "dd/MM/yyyy HH:mm"}}
-          <span (click)="delete(scrap.id)" style="font-weight: bold; color: red; cursor: pointer">
-            Delete
-          </span>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-list *ngFor="let response of history.get(scrap.id)">
-            <ion-item>
-              {{response.model_make}}
-              {{response.km}}
-              {{response.price}}
-              {{response.url}}
-              {{response.published_date | date : "dd/MM/yyyy HH:mm"}}
-            </ion-item>
-          </ion-list>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
-  </ion-content>
+<!-- Scrap History Modal -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Scrap History</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let scrap of scraps">
+      <ion-item slot="header" color="white">
+        <span
+          (click)="delete(scrap.id)"
+          style="
+            font-weight: bold;
+            color: red;
+            cursor: pointer;
+            margin-right: 1rem;
+          "
+        >
+          Delete
+        </span>
+        {{ scrap.date_hour | date : "dd/MM/yyyy HH:mm" }}
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list *ngFor="let response of history.get(scrap.id)">
+          <ion-item>
+            <div style="width: 100%">
+              <div
+                style="
+                  margin-bottom: 1rem;
+                  display: flex;
+                  justify-content: space-between;
+                "
+              >
+                <span
+                  ><strong>{{ response.model_make }}</strong></span
+                >
+                <span>{{
+                  response.published_date | date : "dd/MM/yyyy HH:mm"
+                }}</span>
+              </div>
+              <div><strong>Km:</strong> {{ response.km }}</div>
+              <div><strong>Price:</strong> {{ response.price }}</div>
+              <div style="margin-bottom: 1rem">
+                <strong>URL: </strong>
+                <a href="{{ response.url }}" target="_blank">{{
+                  response.url
+                }}</a>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>
