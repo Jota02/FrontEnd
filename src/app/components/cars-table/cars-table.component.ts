@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 
 import { CarService } from '../../services/api/cars/car.service';
 import { ScrapingService } from '../../services/scraping/scraping.service';
@@ -29,7 +29,8 @@ export class CarsTableComponent implements OnInit, OnChanges {
   constructor(
     private modalController: ModalController,
     private carService: CarService,
-    private scrapingService: ScrapingService
+    private scrapingService: ScrapingService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -99,10 +100,22 @@ export class CarsTableComponent implements OnInit, OnChanges {
   applyFilter() {
     if (this.filter === 'Active') {
       this.filteredCars = this.cars.filter((car) => car.active);
+      this.showToast('Car successfully deactivated!');
     } else if (this.filter === 'NonActive') {
       this.filteredCars = this.cars.filter((car) => !car.active);
+      this.showToast('Car successfully activated!');
     } else {
       this.filteredCars = this.cars;
     }
+  }
+
+  private async showToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 1000,
+      position: 'middle',
+      cssClass: '     ',
+    });
+    await toast.present();
   }
 }

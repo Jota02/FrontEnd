@@ -1,29 +1,38 @@
-  <!-- Edit Car Modal -->
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Edit Car</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="closeModal()">Close</ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <form (ngSubmit)="submitEditCarForm()">
-      <ion-item>
-        <ion-label position="stacked">Brand</ion-label>
-        <ion-input [(ngModel)]="car.make" name="make"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Model</ion-label>
-        <ion-input [(ngModel)]="car.model" name="model"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">URL</ion-label>
-        <ion-input [(ngModel)]="car.url" name="url"></ion-input>
-      </ion-item>
-      <ion-footer>
-        <ion-button expand="block" type="submit">Save Changes</ion-button>
-      </ion-footer>
-    </form>
-  </ion-content>
+<!-- Edit Car Modal -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Car</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="submitEditCarForm()">
+    <ion-item>
+      <ion-label position="stacked">Brand</ion-label>
+      <ion-input [(ngModel)]="car.make" name="make"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Model</ion-label>
+      <ion-input [(ngModel)]="car.model" name="model"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">URL</ion-label>
+      <ion-input [(ngModel)]="car.url" name="url"></ion-input>
+    </ion-item>
+    <ion-footer>
+      <ion-button id="EditCar" expand="block" type="submit"
+        >Save Changes</ion-button
+      >
+      <ion-toast
+        position="middle"
+        trigger="EditCar"
+        message="Car successfully edited!"
+        [duration]="1000"
+        style="text-align: center; font-size: x-large; color: black"
+      ></ion-toast>
+    </ion-footer>
+  </form>
+</ion-content>
