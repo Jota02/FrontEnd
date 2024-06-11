@@ -1,0 +1,45 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>
+      Sign In
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding ion-full-height ion-flex ion-flex-center ion-text-center">
+    <div class="logo-container">
+      <ion-img class="img" src="/assets/logo.svg"></ion-img>
+    </div>
+
+    <form class="form-default" [formGroup]="form" (ngSubmit)="onSubmit(form)" class="w-50vw">
+      <ion-list class="item-card-list form-list-borders" lines="none">
+        <ion-item>
+          <ion-label color="dark" position="stacked">E-mail</ion-label>
+          <ion-input maxlength="50" type="text" formControlName="email"
+            placeholder="E-mail"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="dark" position="stacked">Password</ion-label>
+          <ion-input [type]="hide ? 'password' : 'text'" maxlength="20" formControlName="password" autocomplete="off"
+            placeholder="Password">
+          </ion-input>
+
+          <ion-icon slot="end" [name]="hide ? 'eye' : 'eye-off'" (click)="hide = !hide"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+      <ion-button type="submit">
+        Sign In
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center" color="dark">
+    <small>&copy; {{current_year}} Eletric Move.</small>
+  </ion-toolbar>
+</ion-footer>

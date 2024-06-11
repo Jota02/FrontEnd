@@ -6,6 +6,8 @@ import { CarService } from '../services/api/cars/car.service';
 import { AddCarsComponent } from '../components/add-cars/add-cars.component';
 
 import { ICar } from '../model/i-car.model';
+import { AuthenticationService } from '../services/api/auth/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,9 @@ export class HomePage {
 
   constructor(
     private carService: CarService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private authService  : AuthenticationService,
+    private router : Router
   ) {}
 
   getCars() {
@@ -41,5 +45,11 @@ export class HomePage {
 
   segmentChanged(event: any) {
     this.segmentValue = event.detail.value; // Update the segment value
+  }
+
+  async logOut() {
+    //TODO ASK LOGOUT
+    await this.authService.logout();
+    await this.router.navigateByUrl('/', { replaceUrl: true });
   }
 }
