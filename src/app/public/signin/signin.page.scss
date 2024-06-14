@@ -10,10 +10,23 @@ ion-content {
 /* Desktop */
 @media (min-width: 1280px) {
   ion-content {
-      max-width: 100%;
+    max-width: 100%;
   }
 
   .ion-flex {
-      align-items: center;
+    align-items: center;
   }
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container ion-img {
+  width: 100%;
+  max-width: 100%;
 }
