@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 })
 
 export class AuthenticationService {
-  //isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   isAuthenticated: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
   token = '';
   url = environment.api_url;
@@ -44,7 +43,7 @@ export class AuthenticationService {
   }
 
   login(credentials : any) {
-    return this.http.post(`${this.url}/api/v2/auth/signin`, credentials, this.headers).pipe(
+    return this.http.post(`${this.url}/auth/signin`, credentials, this.headers).pipe(
       map((data: any) => data),
       switchMap(async data => {
         return from(Preferences.set({ key: this.session.TOKEN_KEY, value: data.token }));
