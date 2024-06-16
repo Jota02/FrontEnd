@@ -36,7 +36,7 @@ export class SigninPage implements OnInit {
   async onSubmit(form: FormGroup) {
     const loading = await this.showLoading();
 
-    await firstValueFrom(this.authService.login(form.value)).catch(async error => {
+    await firstValueFrom(this.authService.signin(form.value)).catch(async error => {
       await loading.dismiss();
       alert("wrong email or pwd."); //TODO TOAST
     });
