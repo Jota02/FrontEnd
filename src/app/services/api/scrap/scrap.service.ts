@@ -7,14 +7,17 @@ import { IRequest } from '../../../model/i-request.model';
 import { IResponse } from '../../../model/i-response.model';
 import { IScrap } from '../../../model/i-scrap.model';
 
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScrapService {
-  private apiUrl = "http://localhost:8080/api/scrap/";
+  private apiUrl = environment.api_url;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.apiUrl += "scrap/"
+  }
 
   //getLast10Cars - Get Request - get last 10 cars posted
   getLast10Cars(reqParams: IRequest): Observable<IResponse[]> {

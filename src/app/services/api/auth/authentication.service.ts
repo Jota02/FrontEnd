@@ -4,7 +4,7 @@ import { map, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -58,4 +58,6 @@ export class AuthenticationService {
     await Preferences.clear();
     this.isAuthenticated.next(false);
   }
+
+
 }
