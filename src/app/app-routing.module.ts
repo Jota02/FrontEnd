@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./private/home/home.module').then( m => m.HomePageModule),
     canLoad: [AuthGuard]
   },
   {
@@ -19,6 +19,12 @@ const routes: Routes = [
     loadChildren: () => import('./public/signin/signin.module').then(m => m.SigninPageModule),
     canLoad: [AutoLoginGuard] 
   },
+  {
+    path: 'user-control',
+    loadChildren: () => import('./private/user-control/user-control.module').then( m => m.UserControlPageModule),
+    canLoad: [AuthGuard]
+  },
+
 ];
 
 @NgModule({

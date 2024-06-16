@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
-import { CarService } from '../services/api/cars/car.service';
+import { CarService } from '../../services/api/cars/car.service';
 
-import { AddCarsComponent } from '../components/add-cars/add-cars.component';
+import { AddCarsComponent } from '../../components/add-cars/add-cars.component';
 
-import { ICar } from '../model/i-car.model';
-import { AuthenticationService } from '../services/api/auth/authentication.service';
+import { ICar } from '../../model/i-car.model';
+import { AuthenticationService } from '../../services/api/auth/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
