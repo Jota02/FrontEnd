@@ -1,13 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>user-control</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      class="ion-text-center"
+      style="height: 4rem; font-size: xx-large"
+    >User-control</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user-control XD</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid id="users" style="margin-left: 2em; margin-right: 2em">
+    <ion-row style="background-color: gray; align-items: center">
+      <ion-col size="2" style="font-weight: bold">Name</ion-col>
+      <ion-col size="5" style="font-weight: bold">Email</ion-col>
+      <ion-col size="2" style="font-weight: bold">Password</ion-col>
+      <ion-col size="1" style="font-weight: bold">IsAdmin</ion-col>
+      <ion-col size="1" style="font-weight: bold">IsActive</ion-col>
+      <ion-col size="1" style="font-weight: bold">Edit</ion-col>
+    </ion-row>
+    
+    <ion-row
+      id="Search"
+      *ngFor="let user of users"
+      style="align-items: center"
+    >
+      <ion-col size="2">{{ user.name }}</ion-col>
+      <ion-col size="5">{{ user.email }}</ion-col>
+      <ion-col size="2" class="password-col">{{ user.password }}</ion-col>
+      <ion-col size="1">
+        <ion-checkbox></ion-checkbox>
+      </ion-col>
+      <ion-col size="1">
+        <span
+          (click)="deactivateUser(user)"
+          style="font-weight: bold; color: red; cursor: pointer"
+        >
+          {{ user.isActive ? "Deactivate" : "Activate" }}
+        </span>
+      </ion-col>
+      <ion-col size="1">
+        <span
+          (click)="openEditUserModal(user)"
+          style="font-weight: bold; color: black; cursor: pointer"
+        >
+          Edit
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

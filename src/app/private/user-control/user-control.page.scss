@@ -1,0 +1,32 @@
+/* Estilos para linhas pares e ímpares */
+#users ion-row:nth-child(even) {
+    background-color: lightgray;
+    color: black;
+  }
+  
+  #users ion-row:nth-child(odd) {
+    background-color: gray;
+    color: black;
+  }
+  
+  ion-row {
+    border: 2px solid black;
+  }
+  
+  /* Estilos para as colunas */
+  #Search ion-col {
+    display: flex;
+    border-right: 2px solid black;
+  }
+  
+  #Search ion-col:last-child {
+    border-right: none;
+  }
+  
+  /* Estilo para truncar a senha */
+  .password-col {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  

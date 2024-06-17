@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/api/auth/authentication.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signin',
@@ -19,7 +20,8 @@ export class SigninPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthenticationService,
-    private loadingCtrl : LoadingController
+    private loadingCtrl : LoadingController,
+    private toastController: ToastController,
   ) {
     this.setUpSignInForm();
   }
@@ -35,15 +37,23 @@ export class SigninPage implements OnInit {
 
   async onSubmit(form: FormGroup) {
     const loading = await this.showLoading();
-
-    await firstValueFrom(this.authService.signin(form.value)).catch(async error => {
+  
+    try {
+      await firstValueFrom(this.authService.signin(form.value));
       await loading.dismiss();
-      alert("wrong email or pwd."); //TODO TOAST
-    });
-
-
-    await loading.dismiss();
-    await this.router.navigateByUrl('/home', { replaceUrl: true })
+      await this.router.navigateByUrl('/home', { replaceUrl: true });
+    } catch (error) {
+      await loading.dismiss();
+      const toast = await this.toastController.create({
+        message: 'Email ou senha incorretos.',
+        duration: 3000,
+        position: 'middle',
+        color: 'danger',
+        cssClass: 'custom-toast'
+      });
+      await toast.present();
+    }
+      
   }
 
     //showLoading - Loading controller settings

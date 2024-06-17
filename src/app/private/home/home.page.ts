@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 import { CarService } from '../../services/api/cars/car.service';
 
@@ -19,6 +20,7 @@ export class HomePage {
   segmentValue: string = 'Active'; // Default segment value
 
   constructor(
+    private toastController: ToastController,
     private carService: CarService,
     public modalController: ModalController,
     private authService  : AuthenticationService,
@@ -48,8 +50,29 @@ export class HomePage {
   }
 
   async logOut() {
-    //TODO ASK LOGOUT
-    await this.authService.logout();
-    await this.router.navigateByUrl('/', { replaceUrl: true });
+    const toast = await this.toastController.create({
+      message: 'Are you sure you want to leave?',
+      position: 'middle',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'YES',
+          handler: async () => {
+            await this.authService.logout();
+            await this.router.navigateByUrl('/', { replaceUrl: true });
+          }
+        }
+      ],
+      cssClass: 'custom-toast'
+    });
+
+    await toast.present();
+  }
+
+  Users(){
+    this.router.navigateByUrl('/user-control');
   }
 }

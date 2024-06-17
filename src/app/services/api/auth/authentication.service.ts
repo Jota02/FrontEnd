@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
+import { ToastController } from '@ionic/angular';
 
 import { environment } from '../../../../environments/environment';
 
@@ -24,24 +25,29 @@ export class AuthenticationService {
   }
 
   constructor(
-    private http: HttpClient) {
+    private http: HttpClient,
+    private toastController: ToastController
+  ) {
     this.loadToken();
     this.apiUrl += "auth/"
   }
 
   async loadToken() {
     const token = await Preferences.get({ key: this.session.TOKEN_KEY });
-
+  
     if (token && token.value) {
       this.token = token.value;
       this.isAuthenticated.next(true);
-    }
-    else {
-      if (token.value) {
-        alert("please sign in again."); //TODO TOAST
-      }
-
+    } else {
       this.isAuthenticated.next(false);
+      const toast = await this.toastController.create({
+        message: 'Please sign in again.',
+        duration: 3000, // duração do toast em milissegundos
+        position: 'bottom', // posição do toast na tela: top, middle, bottom
+        color: 'warning', // cor do toast
+        cssClass: 'custom-toast' // classe CSS personalizada se desejar
+      });
+      await toast.present();
     }
   }
 

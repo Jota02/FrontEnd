@@ -1,17 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start" style="background-color:grey; margin-left: 2rem;">
+      <ion-button (click)="Users()">Users</ion-button>
+    </ion-buttons>
     <ion-title
       class="ion-text-center"
       style="height: 4rem; font-size: xx-large"
     >
       StandVirtual - Scraper
     </ion-title>
+    <ion-buttons slot="end" style="background-color: red;margin-right: 2rem;">
+      <ion-button (click)="logOut()">LOG OUT</ion-button>
+    </ion-buttons>
   </ion-toolbar>
-
-  <ion-buttons slot="end">
-    <ion-button (click)="logOut()">LOG OUT</ion-button>
-  </ion-buttons>
-
 </ion-header>
 
 <ion-content [fullscreen]="true">
