@@ -1,0 +1,11 @@
+.add-car-form {
+    display: flex;
+    flex-direction: column;
+    gap: 50px; 
+    padding: 50px; 
+  }
+  
+  .add-car-form ion-item {
+    --inner-padding-start: 0; 
+    --inner-padding-end: 0; 
+  }

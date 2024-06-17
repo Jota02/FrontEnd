@@ -9,7 +9,7 @@
   </ion-header>
 
   <ion-content>
-    <form (ngSubmit)="submitAddCarForm()">
+    <form (ngSubmit)="submitAddCarForm()" class="add-car-form">
       <ion-item>
         <ion-label>Brand: </ion-label>
         <ion-input [(ngModel)]="newCar.make" name="make" required></ion-input>
