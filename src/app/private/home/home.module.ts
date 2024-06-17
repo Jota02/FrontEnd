@@ -12,7 +12,8 @@ import { AddCarsComponent } from '../../components/add-cars/add-cars.component';
 import { EditCarComponent } from '../../components/edit-car/edit-car.component';
 import { ScrapHistoryComponent } from '../../components/scrap-history/scrap-history.component' 
 import { ScrapComponent } from '../../components/scrap/scrap.component';
-import { AddUsersComponent } from 'src/app/components/add-users/add-users.component';
+import { AddUsersComponent } from '../../components/add-users/add-users.component';
+import { ChangePasswordUserComponent } from '../../components/change-password-user/change-password-user.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AddUsersComponent } from 'src/app/components/add-users/add-users.compon
     EditCarComponent,
     ScrapHistoryComponent,
     ScrapComponent,
-    AddUsersComponent
+    AddUsersComponent,
+    ChangePasswordUserComponent
   ]
 })
 export class HomePageModule {}
