@@ -9,7 +9,6 @@ import { AuthenticationService } from '../../services/api/auth/authentication.se
 import { AddCarsComponent } from '../../components/add-cars/add-cars.component';
 
 import { ICar } from '../../model/i-car.model';
-import { IUser } from 'src/app/model/i-user.model';
 import { firstValueFrom } from 'rxjs';
 
 
