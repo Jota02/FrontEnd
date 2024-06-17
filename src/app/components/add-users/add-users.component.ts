@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 
-import { IUser } from '../../model/i-user.model'; // Importe o modelo de usuário apropriado
-import { AuthenticationService } from 'src/app/services/api/auth/authentication.service';
+import { IUser } from '../../model/i-user.model';
+import { AuthenticationService } from '../../services/api/auth/authentication.service';
 
 @Component({
   selector: 'app-add-users',
@@ -17,17 +17,15 @@ export class AddUsersComponent {
   };
 
   constructor(
-    private userService: AuthenticationService, // Injete o serviço de usuário apropriado
+    private userService: AuthenticationService,
     private alertController: AlertController,
     private modalController: ModalController
   ) {}
 
-  // Função para fechar o modal
   closeModal(message = '') {
     this.modalController.dismiss({ message: message });
   }
 
-  // Função para enviar o formulário de adição de usuário
   submitAddUserForm() {
     this.userService.signup(this.newUser).subscribe({
       next: () => {
@@ -41,7 +39,6 @@ export class AddUsersComponent {
     });
   }
 
-  // Função para exibir um alerta de erro
   async showErrorAlert(error: any) {
     const alert = await this.alertController.create({
       header: 'Error',
