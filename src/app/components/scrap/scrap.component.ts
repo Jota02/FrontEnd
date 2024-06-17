@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { firstValueFrom } from 'rxjs';
 
@@ -15,6 +16,7 @@ import { IResponse } from '../../model/i-response.model';
   selector: 'app-scrap',
   templateUrl: './scrap.component.html',
   styleUrls: ['./scrap.component.scss'],
+  providers: [DatePipe]
 })
 export class ScrapComponent {
   selectedCars: Set<ICar> = new Set();
@@ -23,7 +25,8 @@ export class ScrapComponent {
   constructor(
     private scrapingService: ScrapingService,
     private apiScrapService: ScrapService,
-    private responseService: ResponseService
+    private responseService: ResponseService,
+    private datePipe: DatePipe
   ) 
   { 
     this.scrapingService.selectedCars$.subscribe(selectedCars => {
@@ -84,7 +87,36 @@ export class ScrapComponent {
   async scrap() {
     const scrap_ids = await this.createScrapHistory();
     await this.scrapingService.scrap(this.gatherInfo(), scrap_ids);
-    this.responseService.createResponses(this.responses).subscribe();;
+    this.responseService.createResponses(this.responses).subscribe();
+  }
+
+  //exportResponses - Exports responses to CSV
+  exportResponses() {
+    const csvData = this.convertToCSV(this.responses);
+    this.downloadCSV(csvData, 'responses.csv');
+  }
+
+  //convertToCSV - Converts responses to CSV format
+  convertToCSV(responses: IResponse[]): string {
+    const header = 'model_make,km,year,price,url,published_date\n';
+    const rows = responses.map(response => {
+      const publishedDate = this.datePipe.transform(response.published_date, 'dd/MM/yyyy HH:mm');
+      return `${response.model_make},${response.km},${response.year},${response.price},${response.url},${publishedDate}`
+    }).join('\n');
+
+    return header + rows;
+  }
+
+  //downloadCSV - Trigger CSV download
+  downloadCSV(csvData: string, filename: string) {
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', filename);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
 }
