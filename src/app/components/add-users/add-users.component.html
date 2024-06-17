@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="submitAddUserForm()">
+  <form (ngSubmit)="submitAddUserForm()" class="add-user-form">
     <ion-item>
       <ion-label position="stacked">Name</ion-label>
       <ion-input [(ngModel)]="newUser.name" name="Name" required> </ion-input>
