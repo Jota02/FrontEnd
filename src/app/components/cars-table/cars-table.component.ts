@@ -21,7 +21,7 @@ import { ICar } from '../../model/i-car.model';
   styleUrls: ['./cars-table.component.scss'],
 })
 export class CarsTableComponent implements OnInit, OnChanges {
-  @Input() filter: string | undefined; // Add Input property for filter
+  @Input() filter: string | undefined;
   cars: ICar[] = [];
   selectedCars: Set<ICar> = new Set<ICar>();
   filteredCars: ICar[] = [];

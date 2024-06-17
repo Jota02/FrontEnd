@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
+
 import { AuthenticationService } from '../../services/api/auth/authentication.service';
+
 import { IUser } from '../../model/i-user.model';
-//import { EditUserComponent } from '../edit-user/edit-user.component';  // Adicione a importação do componente de edição
 
 @Component({
   selector: 'app-user-control',
@@ -10,64 +11,42 @@ import { IUser } from '../../model/i-user.model';
   styleUrls: ['./user-control.page.scss'],
 })
 export class UserControlPage implements OnInit {
-  @Input() filter: string | undefined;
   users: IUser[] = [];
-  filteredUser: IUser[] = [];
 
   constructor(
     private authService: AuthenticationService,
-    private modalController: ModalController  // Adicione o ModalController
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
     this.getUsers();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['filter']) {
-      this.applyFilter();
-    }
-  }
 
   getUsers(){
     this.authService.getAllUsers().subscribe((users: IUser[]) => {
         this.users = users;
-        this.applyFilter();
       });
   }
-  
-  deactivateUser(user: IUser) {
-    user.isActive = !user.isActive;
-    this.authService.updateVisibility(user).subscribe(() => {
-      this.applyFilter();
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
     });
+    await toast.present();
   }
 
-  applyFilter() {
-    if (this.filter === 'Active') {
-      this.filteredUser = this.users.filter((user) => user.isActive);
-    } else if (this.filter === 'NonActive') {
-      this.filteredUser = this.users.filter((user) => !user.isActive);
-    } else {
-      this.filteredUser = this.users;
-    }
+  toggleAdmin(user: IUser, event: any) {
+    user.isAdmin = event.detail.checked;
+    this.presentToast(`${user.name} is now ${user.isAdmin ? 'an Admin' : 'not an Admin'}`);
   }
 
-  // Método para abrir o modal de edição do usuário
-  async openEditUserModal(user: IUser) {
-    /*const modal = await this.modalController.create({
-      component: EditUserComponent,
-      componentProps: {
-        user: user,
-      },
-    });
-    await modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-    if (data?.message === 'confirmed') {
-      this.getUsers();
-    }
-    }*/
-    console.log("OPEN")
+  toggleActive(user: IUser, event: any) {
+    user.isActive = event.detail.checked;
+    this.presentToast(`${user.name} is now ${user.isActive ? 'Active' : 'Inactive'}`);
   }
+
+
 }

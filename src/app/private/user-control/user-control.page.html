@@ -6,19 +6,17 @@
     <ion-title
       class="ion-text-center"
       style="height: 4rem; font-size: xx-large"
-    >User-control</ion-title>
+    >User Control</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid id="users" style="margin-left: 2em; margin-right: 2em">
+  <ion-grid id="users" style="margin-left: 2em; margin-right: 2em; margin-top: 5em;">
     <ion-row style="background-color: gray; align-items: center">
-      <ion-col size="2" style="font-weight: bold">Name</ion-col>
+      <ion-col size="5" style="font-weight: bold">Name</ion-col>
       <ion-col size="5" style="font-weight: bold">Email</ion-col>
-      <ion-col size="2" style="font-weight: bold">Password</ion-col>
-      <ion-col size="1" style="font-weight: bold">IsAdmin</ion-col>
-      <ion-col size="1" style="font-weight: bold">IsActive</ion-col>
-      <ion-col size="1" style="font-weight: bold">Edit</ion-col>
+      <ion-col size="1" style="font-weight: bold">Admin</ion-col>
+      <ion-col size="1" style="font-weight: bold">Active</ion-col>
     </ion-row>
     
     <ion-row
@@ -26,27 +24,21 @@
       *ngFor="let user of users"
       style="align-items: center"
     >
-      <ion-col size="2">{{ user.name }}</ion-col>
+      <ion-col size="5">{{ user.name }}</ion-col>
       <ion-col size="5">{{ user.email }}</ion-col>
-      <ion-col size="2" class="password-col">{{ user.password }}</ion-col>
       <ion-col size="1">
-        <ion-checkbox></ion-checkbox>
+        <ion-toggle
+          [checked]="user.isAdmin"
+          (ionChange)="toggleAdmin(user, $event)"
+          [ngClass]="{'toggle-false': !user.isAdmin}"
+        ></ion-toggle>
       </ion-col>
       <ion-col size="1">
-        <span
-          (click)="deactivateUser(user)"
-          style="font-weight: bold; color: red; cursor: pointer"
-        >
-          {{ user.isActive ? "Deactivate" : "Activate" }}
-        </span>
-      </ion-col>
-      <ion-col size="1">
-        <span
-          (click)="openEditUserModal(user)"
-          style="font-weight: bold; color: black; cursor: pointer"
-        >
-          Edit
-        </span>
+        <ion-toggle
+          [checked]="user.isActive"
+          (ionChange)="toggleActive(user, $event)"
+          [ngClass]="{'toggle-false': !user.isActive}"
+        ></ion-toggle>
       </ion-col>
     </ion-row>
   </ion-grid>
