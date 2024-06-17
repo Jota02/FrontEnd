@@ -110,7 +110,7 @@ export class AuthenticationService {
     return this.http.get<IUser>(url);
   }
 
-  changePassword(user: IUser, newPassword: string){
+  changePassword(user: IUser, newPassword: string): Observable<IUser>{
     const url = this.apiUrl + 'change-password';
     const body = {
       email: user.email,
@@ -118,27 +118,27 @@ export class AuthenticationService {
       newPassword: newPassword
     };
 
-    return this.http.put(url, body);
+    return this.http.put<IUser>(url, body);
   }
 
-  updateVisibility(user: IUser){
+  updateVisibility(user: IUser): Observable<IUser>{
     const url = this.apiUrl + 'update-visibility';
     const body = {
       id: user.id,
       isActive: user.isActive
     };
 
-    return this.http.put(url, body);
+    return this.http.put<IUser>(url, body);
   }
 
-  updatePermissions(user: IUser){
+  updatePermissions(user: IUser): Observable<IUser>{
     const url = this.apiUrl + 'update-permissions';
     const body = {
       id: user.id,
       isAdmin: user.isAdmin
     };
 
-    return this.http.put(url, body);
+    return this.http.put<IUser>(url, body);
   }
 
 

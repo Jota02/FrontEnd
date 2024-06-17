@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../services/api/auth/authentication.service';
 
 import { IUser } from '../../model/i-user.model';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-user-control',
@@ -40,11 +41,14 @@ export class UserControlPage implements OnInit {
 
   toggleAdmin(user: IUser, event: any) {
     user.isAdmin = event.detail.checked;
+
+    firstValueFrom(this.authService.updatePermissions(user));
     this.presentToast(`${user.name} is now ${user.isAdmin ? 'an Admin' : 'not an Admin'}`);
   }
 
   toggleActive(user: IUser, event: any) {
     user.isActive = event.detail.checked;
+    firstValueFrom(this.authService.updateVisibility(user));
     this.presentToast(`${user.name} is now ${user.isActive ? 'Active' : 'Inactive'}`);
   }
 
