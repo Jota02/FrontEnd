@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
+
 import { map, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, from } from 'rxjs';
+
 import { Preferences } from '@capacitor/preferences';
-import { ToastController } from '@ionic/angular';
+
+import { jwtDecode } from 'jwt-decode';
 
 import { environment } from '../../../../environments/environment';
 
@@ -68,6 +72,21 @@ export class AuthenticationService {
     this.isAuthenticated.next(false);
   }
 
+  async getUserIdFromToken(): Promise<string | null> {
+    const token = await Preferences.get({ key: this.session.TOKEN_KEY });
+    if (!token || !token.value) {
+      return null;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token.value);
+      return decodedToken.id;
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+      return null;
+    }
+  }
+
   signup(user: IUser): Observable<IUser> {
     const url = this.apiUrl + 'signup';
     const body = {
@@ -83,6 +102,12 @@ export class AuthenticationService {
     const url = this.apiUrl + "get-all";
 
     return this.http.get<IUser[]>(url);
+  }
+
+  getUserById(id: String): Observable<IUser>  {
+    const url = this.apiUrl + `get-user/${id}`;
+
+    return this.http.get<IUser>(url);
   }
 
   changePassword(user: IUser, newPassword: string){
