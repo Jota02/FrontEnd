@@ -1,23 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 import { CarService } from '../../services/api/cars/car.service';
+import { AuthenticationService } from '../../services/api/auth/authentication.service';
 
 import { AddCarsComponent } from '../../components/add-cars/add-cars.component';
 
 import { ICar } from '../../model/i-car.model';
-import { AuthenticationService } from '../../services/api/auth/authentication.service';
-import { Router } from '@angular/router';
+import { IUser } from 'src/app/model/i-user.model';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
   cars: ICar[] = [];
   segmentValue: string = 'Active'; // Default segment value
+  isAdmin: boolean = false;
 
   constructor(
     private toastController: ToastController,
@@ -26,6 +30,14 @@ export class HomePage {
     private authService  : AuthenticationService,
     private router : Router
   ) {}
+
+  async ngOnInit() {
+    const userId = await this.authService.getUserIdFromToken();
+    if (userId) {
+      const user = await firstValueFrom(this.authService.getUserById(userId));
+      this.isAdmin = user?.isAdmin;
+    }
+  }
 
   getCars() {
     this.carService.getAllCars().subscribe((cars: ICar[]) => {
