@@ -21,6 +21,7 @@ export class HomePage implements OnInit{
   cars: ICar[] = [];
   segmentValue: string = 'Active'; // Default segment value
   isAdmin: boolean = false;
+  current_year: number = new Date().getFullYear();
 
   constructor(
     private toastController: ToastController,

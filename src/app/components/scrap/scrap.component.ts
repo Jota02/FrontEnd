@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ToastController } from '@ionic/angular';
 
 import { firstValueFrom } from 'rxjs';
 
@@ -10,6 +11,7 @@ import { ResponseService } from '../../services/api/response/response.service';
 import { IRequest } from '../../model/i-request.model';
 import { ICar } from '../../model/i-car.model'
 import { IResponse } from '../../model/i-response.model';
+import { IScrap } from '../../model/i-scrap.model';
 
 
 @Component({
@@ -21,12 +23,14 @@ import { IResponse } from '../../model/i-response.model';
 export class ScrapComponent {
   selectedCars: Set<ICar> = new Set();
   responses: IResponse[] = [];
+  scrapDate: Date | null = null;
 
   constructor(
     private scrapingService: ScrapingService,
     private apiScrapService: ScrapService,
     private responseService: ResponseService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private toastController: ToastController
   ) 
   { 
     this.scrapingService.selectedCars$.subscribe(selectedCars => {
@@ -74,10 +78,10 @@ export class ScrapComponent {
   }
 
   //createScrapHistory - Calls post request for scraps for each selected car and returns all scraps ids generated
-  createScrapHistory(): Promise<string[]> {
+  createScrapHistory(): Promise<IScrap[]> {
     const createScrapPromises = Array.from(this.selectedCars).map(async car => {
       const res = await firstValueFrom(this.apiScrapService.createScrap(car.id));
-      return res.id;
+      return res;
     });
   
     return Promise.all(createScrapPromises);
@@ -85,15 +89,37 @@ export class ScrapComponent {
 
   //scrap -  Passes requests and scrap ids to scrap function / Calls post request for each response received
   async scrap() {
-    const scrap_ids = await this.createScrapHistory();
+    if (this.selectedCars.size === 0) {
+      this.presentToast('Please select cars to scrap!');
+      return;
+    }
+
+    const scrapHistory = await this.createScrapHistory();
+    const scrap_ids = scrapHistory.map(scrap => scrap.id);
+
+    this.scrapDate = scrapHistory[0].date_hour;
+  
     await this.scrapingService.scrap(this.gatherInfo(), scrap_ids);
     this.responseService.createResponses(this.responses).subscribe();
   }
 
+  formatDateForFilename(date: Date): string {
+    return this.datePipe.transform(date, 'ddMMyyyy_HHmm') + '_responses.csv';
+  }
+
   //exportResponses - Exports responses to CSV
   exportResponses() {
-    const csvData = this.convertToCSV(this.responses);
-    this.downloadCSV(csvData, 'responses.csv');
+    if (this.responses.length === 0) {
+      this.presentToast('Please scrap cars before exporting!');
+      return;
+    }
+
+    if(this.scrapDate){
+      const filename = this.formatDateForFilename(this.scrapDate);
+      const csvData = this.convertToCSV(this.responses);
+      this.downloadCSV(csvData, filename);
+    }
+    
   }
 
   //convertToCSV - Converts responses to CSV format
@@ -117,6 +143,15 @@ export class ScrapComponent {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
 }

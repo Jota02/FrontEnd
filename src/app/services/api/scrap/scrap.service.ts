@@ -42,11 +42,11 @@ export class ScrapService {
   }
 
   //createScrap - Post Request - create scrap history entry
-  createScrap(id: String) {
+  createScrap(id: String): Observable<IScrap> {
     const url = this.apiUrl + 'create';
     const body = {cars_id_fk: id};
 
-    return this.http.post<{ id: string }>(url, body);
+    return this.http.post<IScrap>(url, body);
   }
 
   //deleteScrap - Delete Request - deletes scrap history entry

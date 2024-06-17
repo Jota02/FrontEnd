@@ -13,6 +13,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class UserControlPage implements OnInit {
   users: IUser[] = [];
+  current_year: number = new Date().getFullYear();
 
   constructor(
     private authService: AuthenticationService,
@@ -33,7 +34,7 @@ export class UserControlPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 2000,
+      duration: 1000,
       position: 'middle',
     });
     await toast.present();
