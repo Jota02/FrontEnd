@@ -11,15 +11,15 @@
 <ion-content>
   <form (ngSubmit)="submitAddUserForm()">
     <ion-item>
-      <ion-label>Name: </ion-label>
+      <ion-label position="stacked">Name</ion-label>
       <ion-input [(ngModel)]="newUser.name" name="Name" required> </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Email: </ion-label>
+      <ion-label position="stacked">Email</ion-label>
       <ion-input [(ngModel)]="newUser.email" name="Email" type="email" required> </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Password: </ion-label>
+      <ion-label position="stacked">Password</ion-label>
       <ion-input [(ngModel)]="newUser.password" name="Password" type="password" required> </ion-input>
     </ion-item>
     <ion-footer>
