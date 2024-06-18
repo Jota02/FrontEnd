@@ -23,7 +23,15 @@
         <ion-input [(ngModel)]="car.url" name="url"></ion-input>
       </ion-item>
       <ion-footer>
-        <ion-button expand="block" type="submit">Save Changes</ion-button>
+        <ion-button id="EditCar" expand="block" type="submit">Save Changes</ion-button>
+        <ion-toast
+        position="middle"
+        trigger="EditCar"
+        message="Car successfully edited!"
+        [duration]="1000"
+        style="text-align: center; font-size: x-large; color: black">
+        </ion-toast>
+
       </ion-footer>
     </form>
   </ion-content>

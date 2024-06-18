@@ -20,3 +20,11 @@ ion-row {
 #Search ion-col:last-child {
   border-right: none;
 }
+
+.custom-toast {
+  text-align: center;
+  font-size: x-large;
+  color: rgb(157, 43, 43);
+  background-color: red;
+  font-weight: bolder;
+}
