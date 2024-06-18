@@ -5,15 +5,18 @@ import { Observable } from 'rxjs';
 
 import { IResponse } from '../../../model/i-response.model';
 
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResponseService {
 
-  private apiUrl = "http://localhost:8080/api/responses/";
+  private apiUrl = environment.api_url;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiUrl += "responses/"
+   }
 
   //getById - Get Request - get responses by scrap id
   getById(id: String): Observable<IResponse[]>  {

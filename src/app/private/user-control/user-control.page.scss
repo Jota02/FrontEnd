@@ -1,0 +1,42 @@
+ion-content {
+  --background: #636363ad;
+}
+
+
+#users ion-row:nth-child(even) {
+    background-color: lightgray;
+    color: black;
+  }
+  
+  #users ion-row:nth-child(odd) {
+    background-color: gray;
+    color: black;
+  }
+  
+  ion-row {
+    border: 2px solid black;
+  }
+  
+  #Search ion-col {
+    display: flex;
+    border-right: 2px solid black;
+  }
+  
+  #Search ion-col:last-child {
+    border-right: none;
+  }
+  
+  ion-toggle {
+    --handle-background: var(--ion-color-light);
+    --background: #cc0606;
+  
+    &.toggle-false {
+      --handle-background: #cc0606;
+      --background: #cc0606;
+    }
+  }
+
+  .button {
+    font-weight: bold;
+    color: white;
+  }

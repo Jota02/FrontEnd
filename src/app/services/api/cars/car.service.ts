@@ -5,15 +5,19 @@ import { Observable } from 'rxjs';
 
 import { ICar } from '../../../model/i-car.model';
 
+import { environment } from '../../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
 
-  private apiUrl = "http://localhost:8080/api/cars/";
+  private apiUrl = environment.api_url;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.apiUrl += "cars/"
+  }
 
   //getAllCars - Get Request - get all car entries
   getAllCars(): Observable<ICar[]> {

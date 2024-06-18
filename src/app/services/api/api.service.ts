@@ -4,13 +4,17 @@ import { Observable } from 'rxjs';
 import { IRequest } from '../../model/i-request.model';
 import { IResponse } from '../../model/i-response.model';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private API_URL = 'http://localhost:8080/api/scrap/last-10-cars';
+  private apiUrl = environment.api_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiUrl += "scrap/last-10-cars"
+  }
 
   getLast10Cars(reqParams: IRequest): Observable<IResponse[]> {
     const params = new HttpParams()
@@ -21,6 +25,6 @@ export class ApiService {
       .set('toPrice', reqParams.toPrice)
       .set('url', reqParams.url);
 
-    return this.http.get<IResponse[]>(this.API_URL, { params });
+    return this.http.get<IResponse[]>(this.apiUrl, { params });
   }
 }

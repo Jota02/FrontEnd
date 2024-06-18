@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      class="ion-text-center"
+      style="height: 4rem; font-size: xx-large"
+    >User Control</ion-title>
+    <ion-buttons slot="end" style="background-color: grey;margin-right: 2rem;">
+      <ion-button style="color: black;" (click)="openAddUserModal()">Create Account</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid id="users" style="margin-left: 2em; margin-right: 2em; margin-top: 5em;">
+    <ion-row style="background-color: gray; align-items: center">
+      <ion-col size="5" style="font-weight: bold">Name</ion-col>
+      <ion-col size="5" style="font-weight: bold">Email</ion-col>
+      <ion-col size="1" style="font-weight: bold">Admin</ion-col>
+      <ion-col size="1" style="font-weight: bold">Active</ion-col>
+    </ion-row>
+    
+    <ion-row
+      id="Search"
+      *ngFor="let user of users"
+      style="align-items: center"
+    >
+      <ion-col size="5">{{ user.name }}</ion-col>
+      <ion-col size="5">{{ user.email }}</ion-col>
+      <ion-col size="1">
+        <ion-toggle
+          [checked]="user.isAdmin"
+          (ionChange)="toggleAdmin(user, $event)"
+          [ngClass]="{'toggle-false': !user.isAdmin}"
+        ></ion-toggle>
+      </ion-col>
+      <ion-col size="1">
+        <ion-toggle
+          [checked]="user.isActive"
+          (ionChange)="toggleActive(user, $event)"
+          [ngClass]="{'toggle-false': !user.isActive}"
+        ></ion-toggle>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center">
+    <small>&copy; {{current_year}} Eletric Move.</small>
+  </ion-toolbar>
+</ion-footer>

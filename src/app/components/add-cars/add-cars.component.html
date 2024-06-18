@@ -9,28 +9,28 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="submitAddCarForm()">
-    <ion-item>
-      <ion-label>Brand: </ion-label>
-      <ion-input [(ngModel)]="newCar.make" name="make" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Model: </ion-label>
-      <ion-input [(ngModel)]="newCar.model" name="model" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>URL: </ion-label>
-      <ion-input [(ngModel)]="newCar.url" name="url" required></ion-input>
-    </ion-item>
-    <ion-footer>
-      <ion-button id="AddCar" expand="block" type="submit">Add Car</ion-button>
-      <ion-toast
+  <form (ngSubmit)="submitAddCarForm()" class="add-car-form">
+      <ion-item>
+        <ion-label>Brand: </ion-label>
+        <ion-input [(ngModel)]="newCar.make" name="make" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Model: </ion-label>
+        <ion-input [(ngModel)]="newCar.model" name="model" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>URL: </ion-label>
+        <ion-input [(ngModel)]="newCar.url" name="url" required></ion-input>
+      </ion-item>
+      <ion-footer>
+        <ion-button id="AddCar" expand="block" type="submit">Add Car</ion-button>
+        <ion-toast
         position="middle"
         trigger="AddCar"
         message="Car successfully added to your list!"
         [duration]="1000"
         style="text-align: center; font-size: x-large; color: black"
       ></ion-toast>
-    </ion-footer>
-  </form>
-</ion-content>
+      </ion-footer>
+    </form>
+  </ion-content>
