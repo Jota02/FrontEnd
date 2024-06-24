@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:8080/api/',
+  api_url: 'https://proj4-webscrapper-ws-deploy-objszsdm2-pin7i7os-projects.vercel.app/api/',
   session: {
     TOKEN_KEY: 'user-token'
   }
