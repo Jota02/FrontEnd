@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/api/auth/authentication.service';
 import { ToastController } from '@ionic/angular';
-import { AddUsersComponent } from '../../components/add-users/add-users.component';
 import { ChangePasswordUserComponent } from 'src/app/components/change-password-user/change-password-user.component';
 
 @Component({
@@ -24,7 +23,8 @@ export class SigninPage implements OnInit {
     private authService: AuthenticationService,
     private loadingCtrl : LoadingController,
     private toastController: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navCtrl: NavController
   ) {
     this.setUpSignInForm();
   }
@@ -96,5 +96,9 @@ export class SigninPage implements OnInit {
       });
   
       return await modal.present();
+    }
+
+    goToSignup() {
+      this.navCtrl.navigateForward('/signup');
     }
 }

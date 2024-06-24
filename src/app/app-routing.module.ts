@@ -24,6 +24,11 @@ const routes: Routes = [
     loadChildren: () => import('./private/user-control/user-control.module').then( m => m.UserControlPageModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'signup',
+    loadChildren: () => import('./public/signup/signup.module').then( m => m.SignupPageModule),
+  },
+
 
 ];
 

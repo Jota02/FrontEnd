@@ -14,8 +14,8 @@ export class AutoLoginGuard  {
 
   canLoad(): Observable<any> {
     return this.authService.isAuthenticated.pipe(
-      filter(val => val !== null), // Filter out initial Behaviour subject value
-      take(1), // Otherwise the Observable doesn't complete!
+      filter(val => val !== null), 
+      take(1),
       map(async isAuthenticated => {
         if (isAuthenticated) {
           await this.router.navigateByUrl('/home', { replaceUrl: true });

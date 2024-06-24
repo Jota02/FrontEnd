@@ -47,7 +47,7 @@ export class AuthenticationService {
       const toast = await this.toastController.create({
         message: 'Please sign in again.',
         duration: 3000, // duração do toast em milissegundos
-        position: 'bottom', // posição do toast na tela: top, middle, bottom
+        position: 'top', // posição do toast na tela: top, middle, bottom
         color: 'warning', // cor do toast
         cssClass: 'custom-toast' // classe CSS personalizada se desejar
       });
