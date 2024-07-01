@@ -80,7 +80,7 @@ export class ScrapComponent {
   //createScrapHistory - Calls post request for scraps for each selected car and returns all scraps ids generated
   createScrapHistory(): Promise<IScrap[]> {
     const createScrapPromises = Array.from(this.selectedCars).map(async car => {
-      const res = await firstValueFrom(this.apiScrapService.createScrap(car.id));
+      const res = await firstValueFrom<any>(await this.apiScrapService.createScrap(car.id));
       return res;
     });
   

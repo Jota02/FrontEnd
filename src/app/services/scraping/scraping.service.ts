@@ -32,9 +32,9 @@ export class ScrapingService {
     try {
       const responsePromises: Promise<IResponse[]>[] = requests.map(async (request, i) => {
         const scrap_id = scrap_ids[i];
-        const responses = await firstValueFrom(this.scrapService.getLast10Cars(request));
+        const responses: IResponse[] = await firstValueFrom<any>(await this.scrapService.getLast10Cars(request));
 
-        return responses.map(response => {
+        return responses.map(response  => {
           return { ...response, scrap_id_fk: scrap_id };
         });
       });

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { switchMap } from 'rxjs';
+import { firstValueFrom, switchMap } from 'rxjs';
 import { ScrapService } from '../../services/api/scrap/scrap.service';
 import { ResponseService } from '../../services/api/response/response.service';
 import { IScrap } from '../../model/i-scrap.model';
@@ -29,13 +29,10 @@ export class ScrapHistoryComponent implements OnInit {
   }
 
   //loadHistory - Loads Scrap table entries for a specific id
-  loadHistory(id: String) {
-    this.scrapService.getById(id).subscribe({
-      next: (scrap: IScrap[]) => {
-        this.scraps = scrap;
-        this.loadResponses();
-      },
-    });
+  async loadHistory(id: String) {
+    const scraps: IScrap[] = await firstValueFrom<any>(await this.scrapService.getById(id));
+    this.scraps = scraps;
+    this.loadResponses();
   }
 
   //loadResponses - Loads Responses table entries for each specified scrap id

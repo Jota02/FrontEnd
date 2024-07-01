@@ -21,6 +21,7 @@ export class UsersService {
 
   async getAllUsers(){
     const url = this.apiUrl + "get-all";
+    
     const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
     const headers = { 'Authorization': `Bearer ${token}` }
 
@@ -29,6 +30,7 @@ export class UsersService {
 
   async getUserById(id: String) {
     const url = this.apiUrl + `get-user/${id}`;
+
     const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
     const headers = { 'Authorization': `Bearer ${token}` }
 
@@ -41,6 +43,7 @@ export class UsersService {
       id: user.id,
       isActive: user.isActive
     };
+
     const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
     const headers = { 'Authorization': `Bearer ${token}` }
 
@@ -53,6 +56,7 @@ export class UsersService {
       id: user.id,
       isAdmin: user.isAdmin
     };
+
     const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
     const headers = { 'Authorization': `Bearer ${token}` }
 
