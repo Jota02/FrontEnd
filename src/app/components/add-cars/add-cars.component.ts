@@ -5,6 +5,8 @@ import { CarService } from '../../services/api/cars/car.service';
 
 import { ICar } from '../../model/i-car.model';
 
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-cars',
@@ -26,17 +28,16 @@ export class AddCarsComponent {
   }
 
   //submitAddCarForm - Calls post request to create specific car
-  submitAddCarForm() {
-    this.carService.createCar(this.newCar).subscribe({
-      next: () => {
-        this.newCar = { id: '', make: '', model: '', url: '', active: true };
-        this.closeModal('confirmed');
-      },
-      error: (error) => {
+  async submitAddCarForm() {
+    try {
+      await firstValueFrom(await this.carService.createCar(this.newCar));
+      
+      this.newCar = { id: '', make: '', model: '', url: '', active: true };
+      this.closeModal('confirmed');
+    } catch (error) {
         console.error('Error adding car:', error);
         this.showErrorAlert(error);
-      }
-    });
+    }
   }
 
   //showErrorAlert - Error pop up when request returns an error

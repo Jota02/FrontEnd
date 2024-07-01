@@ -8,7 +8,8 @@ import { EditCarComponent } from '../edit-car/edit-car.component';
 import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component';
 
 import { ICar } from '../../model/i-car.model';
-import { Observable, firstValueFrom } from 'rxjs';
+
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-cars-table',
@@ -61,16 +62,18 @@ export class CarsTableComponent implements OnInit, OnChanges {
   }
 
   //update - Calls Put request to set car active field to its inverse
-  update(car: ICar) {
+  async update(car: ICar) {
     car.active = !car.active;
-    this.carService.updateCar(car).subscribe(() => {
-      this.applyFilter();
-      if(car.active === true) {
+    
+    await firstValueFrom(await this.carService.updateCar(car));
+        
+    this.applyFilter();
+    
+    if (car.active) {
         this.showToast('Car successfully activated!');
-      } else {
+    } else {
         this.showToast('Car successfully deactivated!');
-      }
-    });
+    }
   }
 
   //openEditCarModal - Calls scrap-history component

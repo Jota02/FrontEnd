@@ -55,13 +55,13 @@ export class UserControlPage implements OnInit {
 
   async toggleAdmin(user: IUser, event: any) {
     user.isAdmin = event.detail.checked;
-    firstValueFrom<any>(await this.usersService.updatePermissions(user));
+    firstValueFrom(await this.usersService.updatePermissions(user));
     this.presentToast(`${user.name} is now ${user.isAdmin ? 'an Admin' : 'not an Admin'}`);
   }
 
   async toggleActive(user: IUser, event: any) {
     user.isActive = event.detail.checked;
-    firstValueFrom<any>(await this.usersService.updateVisibility(user));
+    firstValueFrom(await this.usersService.updateVisibility(user));
     this.presentToast(`${user.name} is now ${user.isActive ? 'Active' : 'Inactive'}`);
   }
 

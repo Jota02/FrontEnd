@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable} from 'rxjs';
-
 import { Preferences } from '@capacitor/preferences';
-
-import { jwtDecode } from 'jwt-decode';
 
 import { environment } from '../../../../environments/environment';
 

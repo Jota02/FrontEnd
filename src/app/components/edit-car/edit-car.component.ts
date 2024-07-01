@@ -5,6 +5,8 @@ import { ICar } from '../../model/i-car.model';
 
 import { CarService } from '../../services/api/cars/car.service';
 
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-edit-car',
@@ -26,23 +28,22 @@ export class EditCarComponent {
   }
 
   //submitEditCarForm - Calls put request to update specific car
-  submitEditCarForm() {
-    this.carService.updateCar(this.car).subscribe({
-      next: () => {
-        this.closeModal('confirmed');
-      },
-      error: (error) => {
-        console.error('Error adding car:', error);
+  async submitEditCarForm() {
+    try {
+      await firstValueFrom(await this.carService.updateCar(this.car));
+      
+      this.closeModal('confirmed');
+    } catch (error) {
+        console.error('Error updating the car:', error);
         this.showErrorAlert(error);
-      }
-    });
+    }
   }
 
   //showErrorAlert - Error pop up when request returns an error
   async showErrorAlert(error: any) {
     const alert = await this.alertController.create({
       header: 'Error',
-      message: 'There was an error adding the car. Please try again.',
+      message: 'There was an error updating the car. Please try again.',
       buttons: ['OK']
     });
 

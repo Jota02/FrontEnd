@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Preferences } from '@capacitor/preferences';
 
-import { Observable } from 'rxjs';
-
 import { ICar } from '../../../model/i-car.model';
 
 import { environment } from '../../../../environments/environment';
@@ -24,6 +22,7 @@ export class CarService {
   //getAllCars - Get Request - get all car entries
   async getAllCars() {
     const url = this.apiUrl + "get-all";
+
     const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
     const headers = { 'Authorization': `Bearer ${token}` }
 
@@ -31,7 +30,7 @@ export class CarService {
   }
 
   //createCar - Post Request - create car entry
-  createCar(car: ICar): Observable<ICar>{
+  async createCar(car: ICar){
     const url = this.apiUrl + 'create';
     const body = {
       make: car.make,
@@ -39,11 +38,14 @@ export class CarService {
       url: car.url
     };
 
-    return this.http.post<ICar>(url, body);
+    const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
+    const headers = { 'Authorization': `Bearer ${token}` }
+
+    return this.http.post(url, body, {headers});
   }
 
   //updateCar - Put Request - update car info for one car
-  updateCar(car: ICar): Observable<ICar>{
+  async updateCar(car: ICar){
     const url = this.apiUrl + 'update';
     const body = {
       id: car.id,
@@ -53,6 +55,9 @@ export class CarService {
       active: car.active
     };
 
-    return this.http.put<ICar>(url, body);
+    const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
+    const headers = { 'Authorization': `Bearer ${token}` }
+
+    return this.http.put(url, body, {headers});
   }
 }
