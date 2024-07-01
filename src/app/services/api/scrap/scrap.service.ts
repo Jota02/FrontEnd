@@ -3,10 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Preferences } from '@capacitor/preferences';
 
-import { Observable } from 'rxjs';
-
 import { IRequest } from '../../../model/i-request.model';
-import { IScrap } from '../../../model/i-scrap.model';
 
 import { environment } from '../../../../environments/environment';
 

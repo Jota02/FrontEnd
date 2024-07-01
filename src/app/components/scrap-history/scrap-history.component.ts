@@ -37,29 +37,24 @@ export class ScrapHistoryComponent implements OnInit {
 
   //loadResponses - Loads Responses table entries for each specified scrap id
   loadResponses() {
-    this.scraps.forEach((scrap) => {
-      this.responseService.getById(scrap.id).subscribe({
-        next: (response: IResponse[]) => {
-          this.history.set(scrap.id, response);
-        },
-      });
+    this.scraps.forEach(async (scrap) => {
+      const response: IResponse[] = await firstValueFrom<any>(await this.responseService.getById(scrap.id));
+      this.history.set(scrap.id, response);
     });
   }
 
   //delete - Deletes Responses and Scrap tables entries for a specific scrap id
-  delete(id: String) {
-    this.responseService
-      .deleteResponses(id)
-      .pipe(switchMap(() => this.scrapService.deleteScrap(id)))
-      .subscribe({
-        next: () => {
-          this.closeModal();
-          this.showToast();
-        },
-        error: (error) => {
-          console.error('Error:', error);
-        },
-      });
+  async delete(id: String) {
+
+    try {
+      await firstValueFrom(await this.responseService.deleteResponses(id));
+      await firstValueFrom(await this.scrapService.deleteScrap(id));
+
+      this.closeModal();
+      this.showToast();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   private async showToast() {

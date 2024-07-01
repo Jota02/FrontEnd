@@ -100,7 +100,7 @@ export class ScrapComponent {
     this.scrapDate = scrapHistory[0].date_hour;
   
     await this.scrapingService.scrap(this.gatherInfo(), scrap_ids);
-    this.responseService.createResponses(this.responses).subscribe();
+    await firstValueFrom(await this.responseService.createResponses(this.responses));
   }
 
   formatDateForFilename(date: Date): string {

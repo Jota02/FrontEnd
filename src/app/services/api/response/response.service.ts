@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Preferences } from '@capacitor/preferences';
 
 import { IResponse } from '../../../model/i-response.model';
 
@@ -19,14 +19,17 @@ export class ResponseService {
    }
 
   //getById - Get Request - get responses by scrap id
-  getById(id: String): Observable<IResponse[]>  {
+  async getById(id: String) {
     const url = this.apiUrl + `get-id/${id}`;
 
-    return this.http.get<IResponse[]>(url);
+    const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
+    const headers = { 'Authorization': `Bearer ${token}` }
+
+    return this.http.get(url, { headers });
   }
 
   //createResponses - Post Request - create responses
-  createResponses(responses: IResponse[]) {
+  async createResponses(responses: IResponse[]) {
     const url = this.apiUrl + 'create';
     const body = responses.map(response => {
       return {
@@ -40,13 +43,19 @@ export class ResponseService {
       };
     });
 
-    return this.http.post(url, body);
+    const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
+    const headers = { 'Authorization': `Bearer ${token}` }
+
+    return this.http.post(url, body, { headers });
   }
 
   //deleteResponses - Delete Request - delete responses by scrap id
-  deleteResponses(id: String) {
+  async deleteResponses(id: String) {
     const url = this.apiUrl + `delete/${id}`;
 
-    return this.http.delete(url);
+    const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
+    const headers = { 'Authorization': `Bearer ${token}` }
+
+    return this.http.delete(url, { headers });
   }
 }
