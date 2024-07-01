@@ -8,6 +8,7 @@ import { EditCarComponent } from '../edit-car/edit-car.component';
 import { ScrapHistoryComponent } from '../scrap-history/scrap-history.component';
 
 import { ICar } from '../../model/i-car.model';
+import { Observable, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-cars-table',
@@ -54,11 +55,9 @@ export class CarsTableComponent implements OnInit, OnChanges {
   }
 
   //getCars - Load all cars to cars array
-  getCars() {
-    this.carService.getAllCars().subscribe((cars: ICar[]) => {
-      this.cars = cars;
-      this.applyFilter();
-    });
+  async getCars() {
+    this.cars = await firstValueFrom<any>(await this.carService.getAllCars());
+    this.applyFilter();
   }
 
   //update - Calls Put request to set car active field to its inverse

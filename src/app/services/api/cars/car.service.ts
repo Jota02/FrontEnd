@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Preferences } from '@capacitor/preferences';
+
 import { Observable } from 'rxjs';
 
 import { ICar } from '../../../model/i-car.model';
@@ -20,10 +22,12 @@ export class CarService {
   }
 
   //getAllCars - Get Request - get all car entries
-  getAllCars(): Observable<ICar[]> {
+  async getAllCars() {
     const url = this.apiUrl + "get-all";
+    const token = (await Preferences.get({ key: environment.session.TOKEN_KEY })).value;
+    const headers = { 'Authorization': `Bearer ${token}` }
 
-    return this.http.get<ICar[]>(url);
+    return this.http.get(url, {headers});
   }
 
   //createCar - Post Request - create car entry

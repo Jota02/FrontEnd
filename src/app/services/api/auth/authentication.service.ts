@@ -98,48 +98,4 @@ export class AuthenticationService {
     return this.http.post<IUser>(url, body);
   }
 
-  getAllUsers(): Observable<IUser[]> {
-    const url = this.apiUrl + "get-all";
-
-    return this.http.get<IUser[]>(url);
-  }
-
-  getUserById(id: String): Observable<IUser>  {
-    const url = this.apiUrl + `get-user/${id}`;
-
-    return this.http.get<IUser>(url);
-  }
-
-  changePassword(user: IUser, newPassword: string): Observable<IUser>{
-    const url = this.apiUrl + 'change-password';
-    const body = {
-      email: user.email,
-      oldPassword: user.password,
-      newPassword: newPassword
-    };
-
-    return this.http.put<IUser>(url, body);
-  }
-
-  updateVisibility(user: IUser): Observable<IUser>{
-    const url = this.apiUrl + 'update-visibility';
-    const body = {
-      id: user.id,
-      isActive: user.isActive
-    };
-
-    return this.http.put<IUser>(url, body);
-  }
-
-  updatePermissions(user: IUser): Observable<IUser>{
-    const url = this.apiUrl + 'update-permissions';
-    const body = {
-      id: user.id,
-      isAdmin: user.isAdmin
-    };
-
-    return this.http.put<IUser>(url, body);
-  }
-
-
 }

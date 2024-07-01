@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/api/auth/authentication.service';
+import { AuthenticationService } from '../../services/api/auth/authentication.service';
 import { ToastController } from '@ionic/angular';
-import { ChangePasswordUserComponent } from 'src/app/components/change-password-user/change-password-user.component';
 
 @Component({
   selector: 'app-signin',
@@ -82,20 +81,6 @@ export class SigninPage implements OnInit {
         position: 'middle',
       });
       await toast.present();
-    }
-  
-    async ChangePassword() {
-      const modal = await this.modalController.create({
-        component: ChangePasswordUserComponent,
-      });
-  
-      modal.onWillDismiss().then((result) => {
-        if (result.data?.message === 'confirmed') {
-          this.presentToast('Password changed successfully!');
-        }
-      });
-  
-      return await modal.present();
     }
 
     goToSignup() {

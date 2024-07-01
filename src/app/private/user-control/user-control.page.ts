@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController, ModalController } from '@ionic/angular';
 
-import { AuthenticationService } from '../../services/api/auth/authentication.service';
+import { UsersService } from '../../services/api/users/users.service';
 import { AddUsersComponent } from '../../components/add-users/add-users.component';
 import { IUser } from '../../model/i-user.model';
 import { firstValueFrom } from 'rxjs';
@@ -16,7 +16,7 @@ export class UserControlPage implements OnInit {
   current_year: number = new Date().getFullYear();
 
   constructor(
-    private authService: AuthenticationService,
+    private usersService: UsersService,
     private toastController: ToastController,
     private modalController: ModalController
   ) { }
@@ -25,10 +25,8 @@ export class UserControlPage implements OnInit {
     this.getUsers();
   }
 
-  getUsers() {
-    this.authService.getAllUsers().subscribe((users: IUser[]) => {
-      this.users = users;
-    });
+  async getUsers() {
+    this.users = await firstValueFrom<any>(await this.usersService.getAllUsers());
   }
 
   async presentToast(message: string) {
@@ -55,15 +53,15 @@ export class UserControlPage implements OnInit {
     return await modal.present();
   }
 
-  toggleAdmin(user: IUser, event: any) {
+  async toggleAdmin(user: IUser, event: any) {
     user.isAdmin = event.detail.checked;
-    firstValueFrom(this.authService.updatePermissions(user));
+    firstValueFrom<any>(await this.usersService.updatePermissions(user));
     this.presentToast(`${user.name} is now ${user.isAdmin ? 'an Admin' : 'not an Admin'}`);
   }
 
-  toggleActive(user: IUser, event: any) {
+  async toggleActive(user: IUser, event: any) {
     user.isActive = event.detail.checked;
-    firstValueFrom(this.authService.updateVisibility(user));
+    firstValueFrom<any>(await this.usersService.updateVisibility(user));
     this.presentToast(`${user.name} is now ${user.isActive ? 'Active' : 'Inactive'}`);
   }
 

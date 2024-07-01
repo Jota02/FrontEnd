@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { CarService } from '../../services/api/cars/car.service';
 import { AuthenticationService } from '../../services/api/auth/authentication.service';
+import { UsersService } from '../../services/api/users/users.service';
 
 import { AddCarsComponent } from '../../components/add-cars/add-cars.component';
 
@@ -25,24 +26,23 @@ export class HomePage implements OnInit{
 
   constructor(
     private toastController: ToastController,
-    private carService: CarService,
     public modalController: ModalController,
+    private carService: CarService,
     private authService  : AuthenticationService,
+    private usersService : UsersService,
     private router : Router
   ) {}
 
   async ngOnInit() {
     const userId = await this.authService.getUserIdFromToken();
     if (userId) {
-      const user = await firstValueFrom(this.authService.getUserById(userId));
+      const user = await firstValueFrom<any>(await this.usersService.getUserById(userId));
       this.isAdmin = user?.isAdmin;
     }
   }
 
-  getCars() {
-    this.carService.getAllCars().subscribe((cars: ICar[]) => {
-      this.cars = cars;
-    });
+  async getCars() {
+    this.cars = await firstValueFrom<any>(await this.carService.getAllCars());
   }
 
   async openAddCarModal() {
